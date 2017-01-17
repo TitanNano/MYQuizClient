@@ -1,14 +1,16 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace MYQuizClient
 {
 	public partial class App : Application
 	{
+
 		public App()
 		{
 			InitializeComponent();
 
-			MainPage = new MYQuizClientPage();
+			MainPage = new NavigationPage(new MYQuizClientPage());
 		}
 
 		protected override void OnStart()

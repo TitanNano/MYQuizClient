@@ -1,8 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:MYQuizClient" x:Class="MYQuizClient.MYQuizClientPage">
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		     xmlns:local="clr-namespace:MYQuizClient" 
+			 x:Class="MYQuizClient.MYQuizClientPage"
+             Title="Employee List">
 	<ContentPage.Content>
-		<StackLayout>
-			<Button>Click me Hard!</Button>
+		<StackLayout Margin="0">
+			<Button Text="Button 1"></Button>
+			<Entry Placeholder="your name"></Entry>
+			<Button Text="Button 1"></Button>
+			<Button Text="Button 1"></Button>
 		</StackLayout>
 	</ContentPage.Content>
+
 </ContentPage>
