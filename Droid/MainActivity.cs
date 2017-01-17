@@ -24,16 +24,5 @@ namespace MYQuizClient.Droid
 
 			LoadApplication(new App());
 		}
-
-
-		protected override void OnPostCreate(Bundle savedInstanceState)
-		{
-
-			Android.Support.V7.Widget.Toolbar toolBar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-
-			SetSupportActionBar(toolBar);
-
-			base.OnPostCreate(savedInstanceState);
-		}
 	}
 }

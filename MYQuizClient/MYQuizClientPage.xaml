@@ -7,6 +7,7 @@
 	<ContentPage.Content>
 		<StackLayout Margin="0">
 			<Button Text="Button 1"></Button>
+			<Entry Placeholder="your name"></Entry>
 			<Button Text="Button 1"></Button>
 			<Button Text="Button 1"></Button>
 		</StackLayout>
