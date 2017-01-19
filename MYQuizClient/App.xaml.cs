@@ -12,7 +12,13 @@ namespace MYQuizClient
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new MYQuizClientPage());
+            var test = new Networking("https://jsonplaceholder.typicode.com");
+
+            test.dummyRequest();
+
+            MainPage = new NavigationPage(new MYQuizClientPage());
+
+
 		}
 
 		protected override void OnStart()
