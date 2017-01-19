@@ -33,7 +33,7 @@ namespace MYQuizClient.Droid
             //TODO: Initialize CrossPushNotification Plugin
             //TODO: Replace string parameter with your Android SENDER ID
             //TODO: Specify the listener class implementing IPushNotificationListener interface in the Initialize generic
-            CrossPushNotification.Initialize<NotificationListener>("<ANDROID SENDER ID>");
+            CrossPushNotification.Initialize<NotificationListener>("155914");
 
             //This service will keep your app receiving push even when closed.             
             StartPushService();

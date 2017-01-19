@@ -6,7 +6,7 @@ namespace MYQuizClient
 	public partial class App : Application
 	{
 
-        public NotificationManager nManager;
+        public NotificationManager NotificationManager;
 
 		public App()
 		{
@@ -20,13 +20,13 @@ namespace MYQuizClient
             // Handle when your app starts
 
             //TODO Manager load
-            nManager = new NotificationManager();
+            NotificationManager = new NotificationManager();
 
             try
             {
 
-                nManager.Register();
-                MainPage.DisplayAlert("Yay!", "blub", "Cancel");
+                NotificationManager.Register();
+                MainPage.DisplayAlert("PushNotification Register successful!", "PushNotification should work now ^_^", "Ok");
 
             }
             catch (System.Exception e)

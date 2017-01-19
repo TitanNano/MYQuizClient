@@ -10,9 +10,8 @@ namespace MYQuizClient
 {
     public class NotificationManager
     {
-
-        //Additional info
-
+        //Received Token after Registration.
+        public static string token = string.Empty;
 
         public void Register()
         {
@@ -25,6 +24,5 @@ namespace MYQuizClient
         {
             CrossPushNotification.Current.Unregister();
         }
-
     }
 }

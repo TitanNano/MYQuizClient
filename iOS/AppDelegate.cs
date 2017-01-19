@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using PushNotification.Plugin;
 
 namespace MYQuizClient.iOS
 {
@@ -14,7 +15,9 @@ namespace MYQuizClient.iOS
 		{
 			global::Xamarin.Forms.Forms.Init();
 
-			LoadApplication(new App());
+            CrossPushNotification.Initialize<NotificationListener>();
+
+            LoadApplication(new App());
 
 			return base.FinishedLaunching(app, options);
 		}
