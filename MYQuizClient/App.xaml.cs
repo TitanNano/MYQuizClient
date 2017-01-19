@@ -6,6 +6,8 @@ namespace MYQuizClient
 	public partial class App : Application
 	{
 
+        public NotificationManager NotificationManager;
+
 		public App()
 		{
 			InitializeComponent();
@@ -15,7 +17,24 @@ namespace MYQuizClient
 
 		protected override void OnStart()
 		{
-			// Handle when your app starts
+            // Handle when your app starts
+
+            //TODO Manager load
+            NotificationManager = new NotificationManager();
+
+            try
+            {
+
+                NotificationManager.Register();
+                MainPage.DisplayAlert("PushNotification Register successful!", "PushNotification should work now ^_^", "Ok");
+
+            }
+            catch (System.Exception e)
+            {
+
+                MainPage.DisplayAlert("Error", e.Message, "Cancel");
+            }
+
 		}
 
 		protected override void OnSleep()
