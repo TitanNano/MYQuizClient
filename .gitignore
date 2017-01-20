@@ -28,6 +28,8 @@ tarballs/
 test-results/
 Thumbs.db
 *.bak
+*.html
+*.htm
 
 # Mac bundle stuff
 *.dmg
