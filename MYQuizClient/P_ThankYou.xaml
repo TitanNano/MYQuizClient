@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MYQuizClient.P_ThankYou">
+  <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+    <Label Text="Danke für &#x0a;deine Stimme!" HorizontalTextAlignment="Center" FontSize="24" Margin="0,0,0,100"/>
+    <Button Text="zurück zum Login" BorderColor="Black" FontSize="18"/>
+  </StackLayout>
+</ContentPage>

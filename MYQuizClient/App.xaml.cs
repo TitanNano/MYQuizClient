@@ -16,7 +16,7 @@ namespace MYQuizClient
             test.dummyRequest();
             test.dummyReceive();
 
-            MainPage = new NavigationPage(new LoginView());
+            MainPage = new NavigationPage(new P_ThankYou());
 		}
 
 		protected override void OnStart()
