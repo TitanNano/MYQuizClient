@@ -12,7 +12,10 @@ namespace MYQuizClient
     {
         public LoginView()
         {
+<<<<<<< HEAD
 
+=======
+>>>>>>> # 5 - Create Layout for main view: rename + logic removed
             InitializeComponent();
         }
     }
