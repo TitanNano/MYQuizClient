@@ -12,7 +12,7 @@ namespace MYQuizClient
 		{
 			InitializeComponent();
 
-			MainPage = new NavigationPage(new MYQuizClientPage());
+			MainPage = new NavigationPage(new LoginView());
 		}
 
 		protected override void OnStart()
