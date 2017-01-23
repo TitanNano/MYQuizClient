@@ -33,16 +33,19 @@ namespace MYQuizClient
                 return default(T);
             }
 
-            byte[] byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(postData));
-
             WebRequest request = WebRequest.Create(hostAddress + route);
-
             request.ContentType = contentType;
             request.Method = methode;
 
-            Stream dataStream = await request.GetRequestStreamAsync();
+            if (methode != "GET")
+            {
 
-            dataStream.Write(byteArray, 0, byteArray.Length);
+                byte[] byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(postData));
+                Stream dataStream = await request.GetRequestStreamAsync();
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                dataStream.Dispose();
+
+            }
 
             WebResponse response = await request.GetResponseAsync();
 
@@ -50,7 +53,6 @@ namespace MYQuizClient
 
             T value = JsonConvert.DeserializeObject<T>(reader.ReadToEnd());
 
-            dataStream.Dispose();
             response.Dispose();
             reader.Dispose();
 
@@ -64,6 +66,13 @@ namespace MYQuizClient
             List<string> test = new List<string>() { "Hallo", "Welt" };
 
             var result = await sendRequest<List<string>>("/posts", "POST", test);
+
+            return;
+        }
+
+        public async void dummyReceive()
+        {
+            var result = await sendRequest<object>("/posts", "GET", null);
 
             return;
         }

@@ -15,6 +15,7 @@ namespace MYQuizClient
             var test = new Networking("https://jsonplaceholder.typicode.com");
 
             test.dummyRequest();
+            test.dummyReceive();
 
             MainPage = new NavigationPage(new MYQuizClientPage());
 
