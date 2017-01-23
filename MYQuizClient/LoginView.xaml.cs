@@ -12,7 +12,7 @@ namespace MYQuizClient
     {
         public LoginView()
         {
-            //Init XAML Components
+
             InitializeComponent();
         }
     }
