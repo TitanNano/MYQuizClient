@@ -19,6 +19,7 @@ namespace MYQuizClient
 
             MainPage = new NavigationPage(new LoginView());
 
+
 		}
 
 		protected override void OnStart()

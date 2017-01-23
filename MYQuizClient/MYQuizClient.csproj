@@ -45,6 +45,9 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="EmptyClass.cs" />
     <Compile Include="AppSettings.cs" />
+    <Compile Include="P_ThankYou.xaml.cs">
+      <DependentUpon>P_ThankYou.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -86,6 +89,8 @@
   <ItemGroup>
     <EmbeddedResource Include="LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
+    <EmbeddedResource Include="P_ThankYou.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
