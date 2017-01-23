@@ -16,6 +16,7 @@ namespace MYQuizClient
             test.dummyRequest();
             test.dummyReceive();
 
+
             MainPage = new NavigationPage(new LoginView());
 
 		}
