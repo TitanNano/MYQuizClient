@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MYQuizClient.Fragenseite">
+  <ScrollView >
+
+    <StackLayout>
+
+      <StackLayout HeightRequest="250" Margin="0,0,0,70" >
+        <Label x:Name="lb_fragebogen" HorizontalTextAlignment="Center" FontSize="20" Text="Fragebogen1"/>       
+        <Label x:Name="lb_time" HorizontalTextAlignment="Center" FontSize="32" Text="0:32" />
+        <Editor x:Name="ed_frage" FontSize="24" Text="Fragentext" HeightRequest="200" />
+        <Label x:Name="lb_nichbearbeitet" HorizontalTextAlignment="Center" FontSize="18" Text="Frage noch nicht bearbeitet" TextColor="Orange" />
+      </StackLayout>
+
+
+      <StackLayout  HeightRequest="220">
+        <ListView>
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                <Label VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" FontSize="24" />
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+      </StackLayout>
+
+
+      <StackLayout VerticalOptions="EndAndExpand" HeightRequest="80"  >
+        <Button x:Name="btn_next"  Text="weiter"  />
+        <ProgressBar x:Name="pb_fragenfortschritt" Progress="0.2" />
+      </StackLayout>
+
+    </StackLayout>
+
+  </ScrollView>
+</ContentPage>
