@@ -12,7 +12,7 @@ namespace MYQuizClient
 		{
 			InitializeComponent();
             var test = new Networking("https://jsonplaceholder.typicode.com");
-
+            
             test.dummyRequest();
             test.dummyReceive();
 
