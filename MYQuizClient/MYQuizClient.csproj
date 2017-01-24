@@ -37,13 +37,8 @@
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="MYQuizClientPage.xaml.cs">
-      <DependentUpon>MYQuizClientPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Networking.cs" />
-=======
->>>>>>> #5 - Create Layout for main view: neuer Placeholder
+
     <Compile Include="NotificationListener.cs" />
     <Compile Include="NotificationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

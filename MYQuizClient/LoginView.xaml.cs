@@ -12,7 +12,6 @@ namespace MYQuizClient
     {
         public LoginView()
         {
-
             InitializeComponent();
         }
     }
