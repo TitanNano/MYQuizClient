@@ -35,8 +35,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Fragenseite.xaml.cs">
-      <DependentUpon>Fragenseite.xaml</DependentUpon>
+      <DependentUpon>Fragenseite.xaml</DependentUpon>   
     </Compile>
+
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
