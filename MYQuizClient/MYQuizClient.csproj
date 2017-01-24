@@ -29,17 +29,16 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="MYQuizClientPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Fragenseite.xaml.cs">
+      <DependentUpon>Fragenseite.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MYQuizClientPage.xaml.cs">
-      <DependentUpon>MYQuizClientPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="NotificationListener.cs" />
     <Compile Include="NotificationManager.cs" />
@@ -77,6 +76,10 @@
     <Content Include="Helpers\CrossPushNotificationListener.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Fragenseite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
