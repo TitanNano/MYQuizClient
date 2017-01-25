@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace MYQuizClient
 {
-    public partial class P_ThankYou : ContentPage
+    public partial class ThankYouView : ContentPage
     {
-        public P_ThankYou()
+        public ThankYouView()
         {
             InitializeComponent();
         }
