@@ -37,11 +37,13 @@
     <Compile Include="Fragenseite.xaml.cs">
       <DependentUpon>Fragenseite.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
 
     <Compile Include="Networking.cs" />
+
     <Compile Include="NotificationListener.cs" />
     <Compile Include="NotificationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
