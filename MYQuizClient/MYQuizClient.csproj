@@ -38,7 +38,6 @@
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Networking.cs" />
-
     <Compile Include="NotificationListener.cs" />
     <Compile Include="NotificationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +88,7 @@
   <ItemGroup>
     <EmbeddedResource Include="LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="P_ThankYou.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
