@@ -11,7 +11,7 @@ namespace MYQuizClient
 		public App()
 		{
 			InitializeComponent();
-            var test = new Networking("https://jsonplaceholder.typicode.com");
+            var test = new Networking("http://jsonplaceholder.typicode.com");
             
             test.dummyRequest();
             test.dummyReceive();
