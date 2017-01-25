@@ -5,14 +5,25 @@
              Title="Login">
   <ContentPage.Content>
 
-    <StackLayout HorizontalOptions="Center" Margin="0,120">
+
+    <ScrollView >
+   
+        <StackLayout HeightRequest="100">
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+
+
+         
+            <Entry x:Name="en_pincode" FontSize="22" Keyboard="Numeric" HorizontalTextAlignment="Center" Placeholder="Pincode" />
+
+            <Label x:Name="lb_loggedin" FontSize="18" TextColor="Red" Text="Pincode ist falsch"   />
+          
+        </StackLayout>    
       
-      <Entry x:Name="en_pincode" FontSize="22" Keyboard="Numeric" HorizontalTextAlignment="Center" Placeholder="Bitte Pincode hier eingeben..." />
+        </StackLayout>
 
-      <Label x:Name="lb_loggedin" FontSize="18" Text="Pincode ist falsch"  />
-    </StackLayout>
-
+      
+    </ScrollView>
+    
+    
   </ContentPage.Content>
-
-
 </ContentPage>
