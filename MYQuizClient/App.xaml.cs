@@ -11,14 +11,14 @@ namespace MYQuizClient
 		public App()
 		{
 			InitializeComponent();
-            var test = new Networking("https://jsonplaceholder.typicode.com");
+            var test = new Networking("http://jsonplaceholder.typicode.com");
             
             test.dummyRequest();
             test.dummyReceive();
 
 
             MainPage = new NavigationPage(new LoginView());
-
+            NavigationPage ThankYouView = new NavigationPage(new ThankYouView());
 		}
 
 		protected override void OnStart()
