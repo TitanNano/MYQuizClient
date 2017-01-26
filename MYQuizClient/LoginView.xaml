@@ -1,29 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MYQuizClient.LoginView"
              Title="Login">
-  <ContentPage.Content>
-
-
-    <ScrollView >
-   
-        <StackLayout HeightRequest="100">
-        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-
-
-         
-            <Entry x:Name="en_pincode" FontSize="22" Keyboard="Numeric" HorizontalTextAlignment="Center" Placeholder="Pincode" />
-
-            <Label x:Name="lb_loggedin" FontSize="18" TextColor="Red" Text="Pincode ist falsch"   />
-          
-        </StackLayout>    
-      
-        </StackLayout>
-
-      
-    </ScrollView>
-    
-    
-  </ContentPage.Content>
+  <StackLayout VerticalOptions="Center" HorizontalOptions="Center">    
+    <StackLayout>
+      <Entry x:Name="en_pincode" FontSize="24" Keyboard="Numeric" HorizontalTextAlignment="Center" Placeholder="Pincode" />
+      <Label x:Name="lb_loggedin" FontSize="18" IsVisible="false" HeightRequest="40" />
+    </StackLayout>
+  </StackLayout>
 </ContentPage>

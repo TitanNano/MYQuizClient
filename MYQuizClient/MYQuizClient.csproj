@@ -43,6 +43,7 @@
     </Compile>
 
     <Compile Include="Networking.cs" />
+
     <Compile Include="NotificationListener.cs" />
     <Compile Include="NotificationManager.cs" />
     <Compile Include="PreSendView.xaml.cs">
@@ -94,10 +95,9 @@
     <Content Include="Helpers\CrossPushNotificationListener.txt" />
   </ItemGroup>
   <ItemGroup>
-
-
     <EmbeddedResource Include="LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -110,8 +110,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
- 
-
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PreSendView.xaml">
