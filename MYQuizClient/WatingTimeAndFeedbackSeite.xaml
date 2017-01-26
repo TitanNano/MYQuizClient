@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MYQuizClient.WatingTimeAndFeedbackSeite">
+  <StackLayout HorizontalOptions="Center" VerticalOptions="Center" >
+
+    <StackLayout x:Name="sl_waitingtime" IsVisible="true" >
+      <Label Text="Dein Feedback erhälst du in ..." FontSize="28" HorizontalTextAlignment="Center" Margin="50,0,50,20" />
+      <Image Source="stopwatch.png" HeightRequest="75" HorizontalOptions="Center" />
+      <Label x:Name="lb_countdown" Text="20 sek" FontSize="28" HorizontalTextAlignment="Center" />
+    </StackLayout>
+
+    <StackLayout x:Name="sl_feedback" IsVisible="true"  >
+      <ListView x:Name="lv_feedback">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout>
+                <StackLayout Margin="15,0,15,40">
+                  <Label x:Name="lb_frage"  FontSize="24"/>
+                  <StackLayout Orientation="Horizontal">
+                    <Label x:Name="lb_userAntwort"  FontSize="20" />
+                    <Image x:Name="img_feedback" Source="wrong.png" HeightRequest="30" />
+                  </StackLayout>
+                  <Label x:Name="lb_Antwort"  FontSize="22" Text="Richtige Antwort" FontAttributes="Bold" TextColor="Green"/>
+                  <Label x:Name="lb_richtigeAntwort"  FontSize="22" TextColor="Green"  />
+                </StackLayout>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+
+  </StackLayout>
+</ContentPage>

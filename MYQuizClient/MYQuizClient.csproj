@@ -52,8 +52,13 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="EmptyClass.cs" />
 
+
     <Compile Include="ThankYouView.xaml.cs">
       <DependentUpon>ThankYouView.xaml</DependentUpon>
+    </Compile>
+
+    <Compile Include="WatingTimeAndFeedbackSeite.xaml.cs">
+      <DependentUpon>WatingTimeAndFeedbackSeite.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -91,7 +96,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="correct.png" />
     <Content Include="Helpers\CrossPushNotificationListener.txt" />
+    <Content Include="stopwatch.png" />
+    <Content Include="wrong.png" />
   </ItemGroup>
   <ItemGroup>
 
@@ -115,6 +123,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PreSendView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WatingTimeAndFeedbackSeite.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
