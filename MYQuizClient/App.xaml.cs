@@ -14,7 +14,6 @@ namespace MYQuizClient
 
             Networking networking = new Networking("http://h2653223.stratoserver.net");
 
-
             MainPage = new NavigationPage(new LoginView());
             NavigationPage ThankYouView = new NavigationPage(new ThankYouView());
 		}
