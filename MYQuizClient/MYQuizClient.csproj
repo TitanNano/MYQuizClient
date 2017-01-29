@@ -37,6 +37,7 @@
     <Compile Include="Fragenseite.xaml.cs">
       <DependentUpon>Fragenseite.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GivenAnswer.cs" />
     <Compile Include="LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -50,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="EmptyClass.cs" />
+    <Compile Include="RegistrationDevice.cs" />
     <Compile Include="ThankYouView.xaml.cs">
       <DependentUpon>ThankYouView.xaml</DependentUpon>
     </Compile>
@@ -108,7 +110,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Page Include="Fragenseite.xaml">
+  </ItemGroup>
+  <ItemGroup>
+      <Page Include="Fragenseite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -11,10 +11,8 @@ namespace MYQuizClient
 		public App()
 		{
 			InitializeComponent();
-            var test = new Networking("http://jsonplaceholder.typicode.com");
-            
-            test.dummyRequest();
-            test.dummyReceive();
+
+            Networking networking = new Networking("http://h2653223.stratoserver.net");
 
 
             MainPage = new NavigationPage(new LoginView());
