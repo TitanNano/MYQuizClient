@@ -21,7 +21,7 @@ namespace MYQuizClient
         {
 
             this.hostAddress = hostAddress;
-            
+
         }
 
         private async Task<T> sendRequest<T>(string route, string methode, object postData)
@@ -60,22 +60,39 @@ namespace MYQuizClient
 
         }
 
-        public async void dummyRequest()
+        //Device registrieren
+        public async void registerDevice(string deviceId, string password)
         {
+            var postData = JsonConvert.SerializeObject(new RegistrationDevice(NotificationManager.token, deviceId, password));
 
-            List<string> test = new List<string>() { "Hallo", "Welt" };
-
-            var result = await sendRequest<List<string>>("/posts", "POST", test);
-
-            return;
+            var result = await sendRequest<object>("/api/devices", "POST", postData);
         }
 
-        public async void dummyReceive()
+        //Client sendet beantwortete Frage
+        public async void sendAnsweredQuestion(string groupId, string questionId, GivenAnswer answer)
         {
-            var result = await sendRequest<object>("/posts", "GET", null);
+            string route = "/api/groups/" + groupId + "/questions/" + questionId + "/answers";
 
-            return;
+            var postData = JsonConvert.SerializeObject(answer);
+
+            var result = await sendRequest<object>(route, "POST", postData);
         }
 
+        //Vorbereitete Fragen abrufen
+        public async void getPreparedQuestions(string questionListID)
+        {
+
+            string route = "/api/questionLists/" + questionListID;
+
+            var result = await sendRequest<object>(route, "GET", null);
+
+        }
+
+        //Gruppen abrufen
+        public async void getGroups()
+        {
+            var result = await sendRequest<object>("/api/groups", "GET", null);
+            
+        }
     }
 }

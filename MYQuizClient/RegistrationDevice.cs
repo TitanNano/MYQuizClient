@@ -8,9 +8,9 @@ namespace MYQuizClient
 {
     public class RegistrationDevice
     {
-        string token;
-        string deviceID;
-        string password;
+        public string token;
+        public string deviceID;
+        public string password;
 
         public RegistrationDevice(string token, string deviceID, string password)
         {
