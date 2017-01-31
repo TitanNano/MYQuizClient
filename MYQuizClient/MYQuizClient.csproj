@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,6 +46,9 @@
     <Compile Include="Classes\NotificationManager.cs" />
     <Compile Include="Views\PreSendView.xaml.cs">
       <DependentUpon>PreSendView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionCarouselView.xaml.cs">
+      <DependentUpon>QuestionCarouselView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\Settings.cs" />
@@ -112,6 +115,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\QuestionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuestionCarouselView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

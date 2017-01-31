@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace MYQuizClient
@@ -26,6 +26,12 @@ namespace MYQuizClient
             waitingTimeAndFeedbackView = new WaitingTimeAndFeedbackView();
 
             navigateTo(loginView);
+
+            //MainPage = new NavigationPage(new LoginView());
+            MainPage = new NavigationPage(new QuestionCarouselView());
+
+
+            NavigationPage ThankYouView = new NavigationPage(new ThankYouView());
 		}
 
         public void navigateTo(Page page)

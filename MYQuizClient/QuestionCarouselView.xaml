@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MYQuizClient.QuestionCarouselView"
+             Title="MYQuiz" 
+              >
+
+  <CarouselPage.ItemTemplate>
+    <DataTemplate>
+      <ContentPage>
+
+        
+        <StackLayout>
+
+          <StackLayout HeightRequest="150">
+            <Label x:Name="lb_fragebogen" HorizontalTextAlignment="Center" FontSize="20" Text="{Binding fragebogenname}"/>
+            <Label x:Name="lb_time" HorizontalTextAlignment="Center" FontSize="32" Text="0:32" />
+          </StackLayout>
+
+          
+
+          <StackLayout HeightRequest="400" >
+            <Label x:Name="lb_frage" FontSize="24" Text="{Binding fragentext}" />
+            
+            <ListView x:Name="lv_fragen" ItemSelected="OnFragenSelected"
+                      ItemsSource="{Binding antwortliste}">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <TextCell Text="{Binding text}"  />
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </StackLayout>
+          
+          
+          <StackLayout HeightRequest="70">
+            <Button x:Name="btn_next" Clicked="OnNext" Text="weiter"/>
+            <ProgressBar x:Name="pb_fragenfortschritt" Progress="0.2" />            
+          </StackLayout>
+
+          
+        </StackLayout>
+
+
+      </ContentPage>
+    </DataTemplate>
+  </CarouselPage.ItemTemplate>
+
+</CarouselPage>

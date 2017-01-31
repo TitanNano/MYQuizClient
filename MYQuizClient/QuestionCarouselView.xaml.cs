@@ -1,0 +1,134 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+
+namespace MYQuizClient
+{
+    public partial class QuestionCarouselView : CarouselPage
+    {
+        public QuestionCarouselView()
+        {
+            InitializeComponent();
+
+            List<Antwort> list_antworten = new List<Antwort>()
+            {
+                new Antwort() { text="in Berlin", typ=Typus.falsch },
+                new Antwort() { text="in Bayern", typ=Typus.falsch },
+                new Antwort() { text="in Hessen", typ=Typus.falsch },
+                new Antwort() { text="in Baden-Württemberg", typ=Typus.richtig }
+            };
+
+            List<myContentPage> list_myCpages = new List<myContentPage>() {
+                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 1",
+                    antwortliste = list_antworten },
+                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 2",
+                    antwortliste = list_antworten },
+                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 3",
+                    antwortliste = list_antworten },
+                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 4",
+                    antwortliste = list_antworten },
+
+
+            };
+
+            this.ItemsSource = list_myCpages;
+        }
+
+
+        public async void OnFragenSelected(object sender, EventArgs args)
+        {
+            Antwort antwort = (sender as ListView).SelectedItem as Antwort;
+
+            if (antwort != null)
+            {
+                await DisplayAlert("Antwort ist ...", antwort.typ.ToString(), "ok");
+            }
+        }
+
+
+        int i = 1;
+
+        public void OnNext(object sender, EventArgs args)
+        {
+
+
+            //Problem: 
+            //Ich kann nicht auf den direkten Nachbarn springen (+1 Page)
+            //Lösung: Workaround:
+            //Children: die letzte Seite zuerst initialisieren 
+            //Danach kann man im zweiten Schritt auf die Seite springen, die man möchte.
+            //Daraufhin wird die erste Seite initialisiert
+
+            if (Children.Count() == 2)
+            {
+
+                //CurrentPage = null;
+                //CurrentPage = Children[0];
+                CurrentPage = Children[1];
+                //this.UpdateChildrenLayout();
+
+            }
+            else
+            {
+                //Seite beginnt vorne:                                      
+                if (i == 1)
+                {
+                    //init: letzte Seite
+                    int lastIndex = Children.Count() - 1;
+                    CurrentPage = Children[lastIndex];
+                }
+                else
+                {
+                    //Seite läuft weiter:
+                    //init: erste Seite   
+                    CurrentPage = Children[0];
+                }
+
+                CurrentPage = Children[i];
+
+                if (i < Children.Count() - 1)
+                {
+                    i = i + 1;
+                }
+
+
+
+
+            }
+
+
+        }
+
+
+    }
+
+
+    public class Antwort
+    {
+        public string text { get; set; }
+        public Typus typ { get; set; }
+    }
+
+    public enum Typus
+    {
+        falsch,
+        richtig
+    }
+
+    public class myContentPage
+    {
+        public string gruppenname { get; set; }
+        public string fragebogenname { get; set; }
+        public string fragentext { get; set; }
+        public List<Antwort> antwortliste { get; set; }
+
+        public myContentPage()
+        {
+            antwortliste = new List<Antwort>();
+        }
+    }
+}
