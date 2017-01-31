@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace MYQuizClient
 {
-    public partial class WatingTimeAndFeedbackView : ContentPage
+    public partial class QuestionView : CarouselPage
     {
-        public WatingTimeAndFeedbackView()
+        public QuestionView()
         {
             InitializeComponent();
         }
