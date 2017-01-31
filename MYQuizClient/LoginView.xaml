@@ -5,7 +5,7 @@
              Title="Login">
   <StackLayout VerticalOptions="Center" HorizontalOptions="Center">    
     <StackLayout>
-      <Entry x:Name="en_pincode" FontSize="24" Keyboard="Numeric" HorizontalTextAlignment="Center" Placeholder="Pincode" TextChanged="TextChangedNavigation"/>
+      <Entry x:Name="en_pincode" FontSize="24" Keyboard="Numeric" HorizontalTextAlignment="Center" Placeholder="Pincode" Completed="entry_Completed"/>
       <Label x:Name="lb_loggedin" FontSize="18" IsVisible="false" HeightRequest="40" />
     </StackLayout>
   </StackLayout>

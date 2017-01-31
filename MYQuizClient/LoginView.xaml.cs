@@ -10,16 +10,18 @@ namespace MYQuizClient
 {
     public partial class LoginView : ContentPage
     {
+
+        private App App { get { return (MYQuizClient.App)Application.Current; } }
+
         public LoginView()
         {
             InitializeComponent();
         }
 
         //Event called by TextChanged from en_pincode.
-        public async void TextChangedNavigation(object sender, EventArgs args)
+        public void entry_Completed(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new Fragenseite());
+            App.navigateTo(App.frageSeite);
         }
-
     }
 }

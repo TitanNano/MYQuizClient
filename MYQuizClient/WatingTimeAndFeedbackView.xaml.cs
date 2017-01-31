@@ -10,9 +10,19 @@ namespace MYQuizClient
 {
     public partial class WatingTimeAndFeedbackView : ContentPage
     {
+
+        private App App { get { return (MYQuizClient.App)Application.Current; } }
+
         public WatingTimeAndFeedbackView()
         {
             InitializeComponent();
+
         }
+
+        private void b_complete_Clicked(object sender, EventArgs e)
+        {
+            App.navigateTo(App.loginView);
+        }
+
     }
 }

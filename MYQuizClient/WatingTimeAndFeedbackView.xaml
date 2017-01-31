@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MYQuizClient.WatingTimeAndFeedbackView">
-  <StackLayout HorizontalOptions="Center" VerticalOptions="Center" >
+  <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin="30,15" >
 
     <StackLayout x:Name="sl_waitingtime" IsVisible="true" >
       <Label Text="Dein Feedback erhälst du in ..." FontSize="28" HorizontalTextAlignment="Center" Margin="50,0,50,20" />
@@ -19,7 +19,7 @@
                 <StackLayout Margin="15,0,15,40">
                   <Label x:Name="lb_frage"  FontSize="24"/>
                   <StackLayout Orientation="Horizontal">
-                    <Label x:Name="lb_userAntwort"  FontSize="20" />
+                    <Label x:Name="lb_userAntwort" Text="Test" FontSize="20" />
                     <Image x:Name="img_feedback" Source="wrong.png" HeightRequest="30" />
                   </StackLayout>
                   <Label x:Name="lb_Antwort"  FontSize="22" Text="Richtige Antwort" FontAttributes="Bold" TextColor="Green"/>
@@ -31,6 +31,9 @@
         </ListView.ItemTemplate>
       </ListView>
     </StackLayout>
+
+    <Button x:Name="b_complete" Text="Abschließen" BorderColor="Black" Clicked="b_complete_Clicked"/>
+    
 
   </StackLayout>
 </ContentPage>

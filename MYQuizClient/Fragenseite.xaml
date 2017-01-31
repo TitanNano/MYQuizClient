@@ -31,7 +31,7 @@
 
 
         <StackLayout VerticalOptions="EndAndExpand" HeightRequest="80"  >
-          <Button x:Name="btn_next1"  Text="weiter"  />
+          <Button x:Name="btn_next1"  Text="weiter" Clicked="btn_next_Clicked"/>
           <ProgressBar x:Name="pb_fragenfortschritt1" Progress="0.3" />
         </StackLayout>
 
@@ -67,7 +67,7 @@
 
 
         <StackLayout VerticalOptions="EndAndExpand" HeightRequest="80"  >
-          <Button x:Name="btn_next2"  Text="weiter"  />
+          <Button x:Name="btn_next2"  Text="weiter" Clicked="btn_next_Clicked"/>
           <ProgressBar x:Name="pb_fragenfortschritt2" Progress="0.6" />
         </StackLayout>
 
@@ -103,7 +103,7 @@
 
 
         <StackLayout VerticalOptions="EndAndExpand" HeightRequest="80"  >
-          <Button x:Name="btn_next3"  Text="weiter"  />
+          <Button x:Name="btn_next3"  Text="weiter" Clicked="btn_next_Clicked"/>
           <ProgressBar x:Name="pb_fragenfortschritt3" Progress="1.0" />
         </StackLayout>
 

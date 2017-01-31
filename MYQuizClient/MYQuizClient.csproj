@@ -42,7 +42,6 @@
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Networking.cs" />
-
     <Compile Include="NotificationListener.cs" />
     <Compile Include="NotificationManager.cs" />
     <Compile Include="PreSendView.xaml.cs">
@@ -112,10 +111,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-      <Page Include="Fragenseite.xaml">
+    <EmbeddedResource Include="Fragenseite.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PreSendView.xaml">
