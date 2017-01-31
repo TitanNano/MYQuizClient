@@ -14,5 +14,12 @@ namespace MYQuizClient
         {
             InitializeComponent();
         }
+
+        //Event called by TextChanged from en_pincode.
+        public async void TextChangedNavigation(object sender, EventArgs args)
+        {
+            await Navigation.PushModalAsync(new Fragenseite());
+        }
+
     }
 }
