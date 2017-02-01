@@ -13,8 +13,8 @@
 
       <Label Text="Achtung!&#x0a;Einige Fragen wurden&#x0a;nicht beantwortet.&#x0a;&#x0a;Trotzdem senden?" HorizontalTextAlignment="Center"/>
       <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
-        <Button Text="Ja" WidthRequest="75" BorderColor="Black"/>
-        <Button Text="Nein" WidthRequest="75" BorderColor="Black"/>
+        <Button x:Name="b_yes" Text="Ja" WidthRequest="75" BorderColor="Black" Clicked="b_yes_Clicked"/>
+        <Button x:Name="b_no" Text="Nein" WidthRequest="75" BorderColor="Black" Clicked="b_no_Clicked"/>
       </StackLayout>
     </StackLayout>
   </StackLayout>

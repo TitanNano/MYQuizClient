@@ -10,9 +10,18 @@ namespace MYQuizClient
 {
     public partial class QuestionView : CarouselPage
     {
+        private App App { get { return (MYQuizClient.App)Application.Current; } }
+
         public QuestionView()
         {
             InitializeComponent();
+        }
+
+        private void btn_next_Clicked(object sender, EventArgs e)
+        {
+
+            App.navigateTo(App.preSendView);
+
         }
     }
 }
