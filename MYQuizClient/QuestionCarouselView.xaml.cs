@@ -49,58 +49,16 @@ namespace MYQuizClient
             }
         }
 
-
-        int i = 1;
-
         public void OnNext(object sender, EventArgs args)
         {
+            var nextIndex = Children.IndexOf(CurrentPage) + 1;
 
-
-            //Problem: 
-            //Ich kann nicht auf den direkten Nachbarn springen (+1 Page)
-            //Lösung: Workaround:
-            //Children: die letzte Seite zuerst initialisieren 
-            //Danach kann man im zweiten Schritt auf die Seite springen, die man möchte.
-            //Daraufhin wird die erste Seite initialisiert
-
-            if (Children.Count() == 2)
+            if (nextIndex == Children.Count())
             {
-
-                //CurrentPage = null;
-                //CurrentPage = Children[0];
-                CurrentPage = Children[1];
-                //this.UpdateChildrenLayout();
-
-            }
-            else
-            {
-                //Seite beginnt vorne:                                      
-                if (i == 1)
-                {
-                    //init: letzte Seite
-                    int lastIndex = Children.Count() - 1;
-                    CurrentPage = Children[lastIndex];
-                }
-                else
-                {
-                    //Seite läuft weiter:
-                    //init: erste Seite   
-                    CurrentPage = Children[0];
-                }
-
-                CurrentPage = Children[i];
-
-                if (i < Children.Count() - 1)
-                {
-                    i = i + 1;
-                }
-
-
-
-
+                nextIndex = 0;
             }
 
-
+            CurrentPage = Children[nextIndex];
         }
 
 
