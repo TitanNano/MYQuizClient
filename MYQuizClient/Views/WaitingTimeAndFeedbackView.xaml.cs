@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace MYQuizClient
 {
-    public partial class Fragenseite : ContentPage
+    public partial class WaitingTimeAndFeedbackView : ContentPage
     {
-        public Fragenseite()
+        public WaitingTimeAndFeedbackView()
         {
             InitializeComponent();
         }
