@@ -9,7 +9,10 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http;
+
 using Xamarin.Forms;
+using MYQuizClient.Helpers;
+ 
 
 
 namespace MYQuizClient
@@ -65,9 +68,25 @@ namespace MYQuizClient
             request.ContentType = contentType;
             request.Method = methode;
 
+            //Gruppe beitreten -> im Header muss zusätzlich "DeviceID" hinzu,
+            //weil Header für Autorisierung benötigt wird.
+            //REST-API-Pfad, um Ressource anzusprechen
+            if(postData is Group)
+            {                
+               request.Headers["DeviceID"] = Settings.ClientId;
+            }
+
+
             if (methode != "GET")
             {
-                var jsonString = JsonConvert.SerializeObject(postData);
+                //Json soll Parameter mit NULL beim String-erstellen ignorieren
+                var jsonString = JsonConvert.SerializeObject(postData, 
+                                                        Newtonsoft.Json.Formatting.None,
+                                                        new JsonSerializerSettings
+                                                        {
+                                                            NullValueHandling = NullValueHandling.Ignore
+                                                        });
+
                 byte[] byteArray = Encoding.UTF8.GetBytes(jsonString);
                 Stream dataStream = await request.GetRequestStreamAsync();
                 dataStream.Write(byteArray, 0, byteArray.Length);
@@ -101,6 +120,18 @@ namespace MYQuizClient
             return device;
         }
         
+        
+        //Client in Gruppe beitreten
+        public async Task<Group>  enterGroup(string groupPin)
+        {
+            var deviceId = Settings.ClientId;
+            var postData = new Group() { enterGroupPin = groupPin, id = null, title = null };
+            Group group = await sendRequest<Group>("/api/devices/" + deviceId + "/groups", "POST", postData);
+
+            Debug.WriteLine("Networking - enterGroup: Title = " + group.title);
+
+            return group;
+        }
                  
   
 
@@ -109,7 +140,7 @@ namespace MYQuizClient
         {
             string route = "/api/groups/" + groupId + "/questions/" + questionId + "/answers";
 
-            var postData = JsonConvert.SerializeObject(answer);
+            var postData = answer;
 
             var result = await sendRequest<object>(route, "POST", postData);
         }
