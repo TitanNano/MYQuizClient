@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.Net.Http;
 
 namespace MYQuizClient
 {
-    class Networking
+    //Networking als Singleton
+    public sealed class Networking
     {
+
+        private static Networking instance = null;
+        //für Thread Safety - padlock
+        private static readonly object padlock = new object();
+
         string hostAddress = string.Empty;
 
         const string contentType = "application/json";
@@ -23,6 +31,24 @@ namespace MYQuizClient
             this.hostAddress = hostAddress;
 
         }
+
+        //Eine Instanz erstellen bzw. wenn erstellt diese zurückgeben mit Thread-Safety
+        public static Networking Current
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if(instance == null)
+                    {
+                        instance = new Networking("http://h2653223.stratoserver.net");
+                    }
+                    return instance;
+                }
+            }
+        }
+
+
 
         private async Task<T> sendRequest<T>(string route, string methode, object postData)
         {
@@ -39,8 +65,8 @@ namespace MYQuizClient
 
             if (methode != "GET")
             {
-
-                byte[] byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(postData));
+                var jsonString = JsonConvert.SerializeObject(postData);
+                byte[] byteArray = Encoding.UTF8.GetBytes(jsonString);
                 Stream dataStream = await request.GetRequestStreamAsync();
                 dataStream.Write(byteArray, 0, byteArray.Length);
                 dataStream.Dispose();
@@ -60,13 +86,21 @@ namespace MYQuizClient
 
         }
 
-        //Device registrieren
-        public async void registerDevice(string deviceId, string password)
-        {
-            var postData = JsonConvert.SerializeObject(new RegistrationDevice(NotificationManager.token, deviceId, password));
+        
 
-            var result = await sendRequest<object>("/api/devices", "POST", postData);
+        //ClientDevice registrieren        
+        public async Task<RegistrationDevice> registerClientDevice()
+        {
+            var mytoken = NotificationManager.token;
+            var postData = new RegistrationDevice();
+
+            RegistrationDevice device = await sendRequest<RegistrationDevice>("/api/devices", "POST", postData);          
+
+            return device;
         }
+        
+                 
+  
 
         //Client sendet beantwortete Frage
         public async void sendAnsweredQuestion(string groupId, string questionId, GivenAnswer answer)
@@ -92,7 +126,7 @@ namespace MYQuizClient
         public async void getGroups()
         {
             var result = await sendRequest<object>("/api/groups", "GET", null);
-            
+            Debug.WriteLine("Networking - Group Message: " + result);
         }
     }
 }

@@ -8,6 +8,7 @@ using Xamarin.Forms;
 
 namespace MYQuizClient
 {
+
     public partial class ThankYouView : ContentPage
     {
         public ThankYouView()
