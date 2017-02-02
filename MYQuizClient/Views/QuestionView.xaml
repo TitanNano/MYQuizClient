@@ -1,116 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MYQuizClient.QuestionView">
+             x:Class="MYQuizClient.QuestionView"
+             Title="MYQuiz" 
+              >
 
-  <ContentPage>
-    <ScrollView >
+  <CarouselPage.ItemTemplate>
+    <DataTemplate>
+      <ContentPage>
 
-      <StackLayout>
+        
+        <StackLayout>
 
-        <StackLayout HeightRequest="250" Margin="0,0,0,70" >
-          <Label x:Name="lb_fragebogen1" HorizontalTextAlignment="Center" FontSize="20" Text="Fragebogen1"/>
-          <Label x:Name="lb_time1" HorizontalTextAlignment="Center" FontSize="32" Text="0:32" />
-          <Editor x:Name="ed_frage1" FontSize="24" Text="Fragentext1" HeightRequest="200" />
-          <Label x:Name="lb_nichbearbeitet1" HorizontalTextAlignment="Center" FontSize="18" Text="Frage noch nicht bearbeitet" TextColor="Orange" />
+          <StackLayout HeightRequest="150">
+            <Label x:Name="lb_fragebogen" HorizontalTextAlignment="Center" FontSize="20" Text="{Binding fragebogenname}"/>
+            <Label x:Name="lb_time" HorizontalTextAlignment="Center" FontSize="32" Text="0:32" />
+          </StackLayout>
+
+          
+
+          <StackLayout HeightRequest="400" >
+            <Label x:Name="lb_frage" FontSize="24" Text="{Binding fragentext}" />
+            
+            <ListView x:Name="lv_fragen" ItemSelected="OnFragenSelected"
+                      ItemsSource="{Binding antwortliste}">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <TextCell Text="{Binding text}"  />
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
+          </StackLayout>
+          
+          
+          <StackLayout HeightRequest="70">
+            <Button x:Name="btn_next" Clicked="OnNext" Text="weiter"/>
+            <ProgressBar x:Name="pb_fragenfortschritt" Progress="0.2" />            
+          </StackLayout>
+
+          
         </StackLayout>
 
 
-        <StackLayout  HeightRequest="220">
-          <ListView>
-            <ListView.ItemTemplate>
-              <DataTemplate>
-                <ViewCell>
-                  <Label VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" FontSize="24" />
-                </ViewCell>
-              </DataTemplate>
-            </ListView.ItemTemplate>
-          </ListView>
-        </StackLayout>
+      </ContentPage>
+    </DataTemplate>
+  </CarouselPage.ItemTemplate>
 
-
-        <StackLayout VerticalOptions="EndAndExpand" HeightRequest="80"  >
-          <Button x:Name="btn_next1"  Text="weiter" Clicked="btn_next_Clicked"/>
-          <ProgressBar x:Name="pb_fragenfortschritt1" Progress="0.3" />
-        </StackLayout>
-
-      </StackLayout>
-
-    </ScrollView>
-  </ContentPage>
-
-  <ContentPage>
-    <ScrollView >
-
-      <StackLayout>
-
-        <StackLayout HeightRequest="250" Margin="0,0,0,70" >
-          <Label x:Name="lb_fragebogen2" HorizontalTextAlignment="Center" FontSize="20" Text="Fragebogen2"/>
-          <Label x:Name="lb_time2" HorizontalTextAlignment="Center" FontSize="32" Text="0:32" />
-          <Editor x:Name="ed_frage2" FontSize="24" Text="Fragentext2" HeightRequest="200" />
-          <Label x:Name="lb_nichbearbeitet2" HorizontalTextAlignment="Center" FontSize="18" Text="Frage noch nicht bearbeitet" TextColor="Orange" />
-        </StackLayout>
-
-
-        <StackLayout  HeightRequest="220">
-          <ListView>
-            <ListView.ItemTemplate>
-              <DataTemplate>
-                <ViewCell>
-                  <Label VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" FontSize="24" />
-                </ViewCell>
-              </DataTemplate>
-            </ListView.ItemTemplate>
-          </ListView>
-        </StackLayout>
-
-
-        <StackLayout VerticalOptions="EndAndExpand" HeightRequest="80"  >
-          <Button x:Name="btn_next2"  Text="weiter" Clicked="btn_next_Clicked"/>
-          <ProgressBar x:Name="pb_fragenfortschritt2" Progress="0.6" />
-        </StackLayout>
-
-      </StackLayout>
-
-    </ScrollView>
-  </ContentPage>
-
-  <ContentPage>
-    <ScrollView >
-
-      <StackLayout>
-
-        <StackLayout HeightRequest="250" Margin="0,0,0,70" >
-          <Label x:Name="lb_fragebogen3" HorizontalTextAlignment="Center" FontSize="20" Text="Fragebogen3"/>
-          <Label x:Name="lb_time3" HorizontalTextAlignment="Center" FontSize="32" Text="0:32" />
-          <Editor x:Name="ed_frage3" FontSize="24" Text="Fragentext3" HeightRequest="200" />
-          <Label x:Name="lb_nichbearbeitet3" HorizontalTextAlignment="Center" FontSize="18" Text="Frage noch nicht bearbeitet" TextColor="Orange" />
-        </StackLayout>
-
-
-        <StackLayout  HeightRequest="220">
-          <ListView>
-            <ListView.ItemTemplate>
-              <DataTemplate>
-                <ViewCell>
-                  <Label VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" FontSize="24" />
-                </ViewCell>
-              </DataTemplate>
-            </ListView.ItemTemplate>
-          </ListView>
-        </StackLayout>
-
-
-        <StackLayout VerticalOptions="EndAndExpand" HeightRequest="80"  >
-          <Button x:Name="btn_next3"  Text="weiter" Clicked="btn_next_Clicked"/>
-          <ProgressBar x:Name="pb_fragenfortschritt3" Progress="1.0" />
-        </StackLayout>
-
-      </StackLayout>
-
-    </ScrollView>
-  </ContentPage>
-  
 </CarouselPage>
-
