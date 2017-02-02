@@ -34,6 +34,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shared\Group.cs" />
     <Compile Include="Views\QuestionView.xaml.cs">
       <DependentUpon>QuestionView.xaml</DependentUpon>
     </Compile>
@@ -49,6 +50,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Classes\EmptyClass.cs" />
     <Compile Include="Shared\RegistrationDevice.cs" />
     <Compile Include="Views\ThankYouView.xaml.cs">
       <DependentUpon>ThankYouView.xaml</DependentUpon>
