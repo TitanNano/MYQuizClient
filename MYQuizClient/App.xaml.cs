@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 using System;
+using System.Diagnostics;
 
 namespace MYQuizClient
 {
@@ -50,15 +51,10 @@ namespace MYQuizClient
 
             try
             {
-
-                //Register Pushnotification
-                NotificationManager.Register();
-                //MainPage.DisplayAlert("PushNotification Register successful!", "PushNotification should work now ^_^", "Ok");
-
-
+                             
                 //register the device             
                 registerDevice();
-
+               
 
             }
             catch (System.Exception e)
@@ -74,9 +70,16 @@ namespace MYQuizClient
 
         private async void registerDevice()
         {
-            //Erst wenn Device noch nicht registriert, registrieren ausführen
-            if(regDeviceResponse == null)
+            //Erst wenn Device noch nicht registriert, 
+            //d.h. es existiert noch keine ClientId,
+            //dann Registrieren ausführen für
+            //PushNotification und Device
+            if( Settings.ClientId == String.Empty)
             {
+                //Register Pushnotification
+                NotificationManager.Register();
+
+                //Device registrieren
                 regDeviceResponse = await networking.registerClientDevice();
 
                 //save device id in application settings:
