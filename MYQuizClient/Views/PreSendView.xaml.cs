@@ -10,9 +10,26 @@ namespace MYQuizClient
 {
     public partial class PreSendView : ContentPage
     {
+
+        private App App { get { return (MYQuizClient.App)Application.Current; } }
+
         public PreSendView()
         {
             InitializeComponent();
+        }
+
+        private void b_yes_Clicked(object sender, EventArgs e)
+        {
+
+            App.navigateTo(App.waitingTimeAndFeedbackView);
+
+        }
+
+        private void b_no_Clicked(object sender, EventArgs e)
+        {
+
+            App.navigateTo(App.questionView);
+
         }
     }
 }

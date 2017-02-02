@@ -10,9 +10,17 @@ namespace MYQuizClient
 {
     public partial class LoginView : ContentPage
     {
+
+        private App App { get { return (MYQuizClient.App)Application.Current; } }
+
         public LoginView()
         {
             InitializeComponent();
+        }
+
+        public void entry_Completed(object sender, EventArgs e)
+        {
+            App.navigateTo(App.questionView);
         }
     }
 }

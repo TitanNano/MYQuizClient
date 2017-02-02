@@ -8,15 +8,30 @@ namespace MYQuizClient
 
         public NotificationManager NotificationManager;
 
+        //Pages
+        public Page loginView;
+        public Page questionView;
+        public Page preSendView;
+        public Page waitingTimeAndFeedbackView;
+
 		public App()
 		{
 			InitializeComponent();
 
             Networking networking = new Networking("http://h2653223.stratoserver.net");
 
-            MainPage = new NavigationPage(new LoginView());
-            NavigationPage ThankYouView = new NavigationPage(new ThankYouView());
+            loginView = new LoginView();
+            questionView = new QuestionView();
+            preSendView = new PreSendView();
+            waitingTimeAndFeedbackView = new WaitingTimeAndFeedbackView();
+
+            navigateTo(loginView);
 		}
+
+        public void navigateTo(Page page)
+        {
+            MainPage = new NavigationPage(page);
+        }
 
 		protected override void OnStart()
 		{
