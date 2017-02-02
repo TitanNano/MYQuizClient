@@ -9,6 +9,8 @@ namespace MYQuizClient
 	{
 
         public NotificationManager NotificationManager;
+        Networking networking;
+
 
         public Networking networking;
 
@@ -21,6 +23,7 @@ namespace MYQuizClient
 		public App()
 		{
 			InitializeComponent();
+
             //Networking über Singleton erstellen
             networking = Networking.Current;
 
@@ -77,11 +80,13 @@ namespace MYQuizClient
         {
             //Erst wenn Device noch nicht registriert, registrieren ausführen
 
+
             if(Settings.ClientId == String.Empty)
             {
                 //Register Pushnotification
                 NotificationManager.Register();
                 
+
 
                 regDeviceResponse = await networking.registerClientDevice();
 

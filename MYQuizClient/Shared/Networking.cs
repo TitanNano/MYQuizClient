@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using Xamarin.Forms;
 
+
 namespace MYQuizClient
 {
     //Networking als Singleton
@@ -128,12 +129,14 @@ namespace MYQuizClient
         {
             var result = await sendRequest<object>("/api/groups", "GET", null);
             Debug.WriteLine("Networking - Group Message: " + result);
+
         }
 
         //Get Questionnaire
         public async Task<Questionnaire> getQuestionnaire(string id)
         {
             return await sendRequest<Questionnaire>("/api/givenAnswer/" + id, "GET", null);
+
         }
     }
 }
