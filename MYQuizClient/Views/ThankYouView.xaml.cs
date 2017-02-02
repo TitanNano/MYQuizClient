@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace MYQuizClient
 {
-    public partial class Fragenseite : CarouselPage
+    public partial class ThankYouView : ContentPage
     {
         public ThankYouView()
         {
