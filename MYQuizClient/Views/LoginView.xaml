@@ -8,8 +8,10 @@
       <Entry x:Name="en_pincode" FontSize="24" Keyboard="Numeric" 
 				HorizontalTextAlignment="Center" Placeholder="Pincode" 
 				HorizontalOptions="FillAndExpand" Completed="entry_Completed"/>
+
       <Button x:Name="btn_loadQuestionnaire" Text="Klick mich wenn du willst! ( ͝° ͜ʖ͡°)" Clicked="btn_loadQuestionnaire_Click" IsEnabled="{Binding isNotBusy}"/>
       <Label x:Name="lb_loggedin" FontSize="18" IsVisible="false" HeightRequest="40" />
+
     </StackLayout>
   </StackLayout>
 </ContentPage>
