@@ -51,11 +51,7 @@ namespace MYQuizClient
             try
             {
 
-                //Register Pushnotification
-                NotificationManager.Register();
-                //MainPage.DisplayAlert("PushNotification Register successful!", "PushNotification should work now ^_^", "Ok");
-
-
+               
                 //register the device             
                 registerDevice();
 
@@ -75,8 +71,11 @@ namespace MYQuizClient
         private async void registerDevice()
         {
             //Erst wenn Device noch nicht registriert, registrieren ausführen
-            if(regDeviceResponse == null)
+            if(Settings.ClientId == String.Empty)
             {
+                //Register Pushnotification
+                NotificationManager.Register();
+                
                 regDeviceResponse = await networking.registerClientDevice();
 
                 //save device id in application settings:
