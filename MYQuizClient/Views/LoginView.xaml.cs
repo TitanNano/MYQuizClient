@@ -45,7 +45,8 @@ namespace MYQuizClient
                 {
                     //Falls Registrierung beim App.OnStart() misslingt
                     //hier nochmal neu registrieren:
-                    await Networking.Current.registerClientDevice();
+                    RegistrationDevice registeredDevice = await Networking.Current.registerClientDevice();
+                    Settings.ClientId = registeredDevice.id;
                     enterGroup();
                 }
             }
