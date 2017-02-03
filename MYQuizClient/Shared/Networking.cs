@@ -124,7 +124,6 @@ namespace MYQuizClient
         
         
         //Client in Gruppe beitreten
-
         public async Task<Group> enterGroup(string groupPin)
         {
             var deviceId = Settings.ClientId;
@@ -132,6 +131,8 @@ namespace MYQuizClient
             var postData = new Group() { enterGroupPin = groupPin, id = null, title = null };
             Group group = await sendRequest<Group>("/api/devices/" + deviceId + "/groups", "POST", postData);
 
+
+            Debug.WriteLine("Networking - enterGroup: deviceId = " + deviceId);
             Debug.WriteLine("Networking - enterGroup: Title = " + group.title);
 
             return group;
