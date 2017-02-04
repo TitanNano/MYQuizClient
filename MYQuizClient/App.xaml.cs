@@ -1,5 +1,7 @@
+﻿using MYQuizClient.Helpers;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using System;
 
 namespace MYQuizClient
 {
@@ -7,6 +9,8 @@ namespace MYQuizClient
 	{
 
         public NotificationManager NotificationManager;
+        Networking networking;
+
 
         //Pages
         public Page loginView;
@@ -17,8 +21,9 @@ namespace MYQuizClient
 		public App()
 		{
 			InitializeComponent();
-
-            Networking networking = new Networking("http://h2653223.stratoserver.net");
+                        
+            //Networking über Singleton erstellen
+            networking = Networking.Current;
 
             loginView = new LoginView();
             questionView = new QuestionView();
@@ -28,13 +33,16 @@ namespace MYQuizClient
             navigateTo(loginView);
    		}
 
+
         public void navigateTo(Page page)
         {
             MainPage = new NavigationPage(page);
         }
 
-		protected override void OnStart()
-		{
+
+        protected override async void OnStart()
+        {
+
             // Handle when your app starts
 
             //TODO Manager load
@@ -43,19 +51,48 @@ namespace MYQuizClient
             try
             {
 
+
+                //Register Pushnotification
                 NotificationManager.Register();
-                MainPage.DisplayAlert("PushNotification Register successful!", "PushNotification should work now ^_^", "Ok");
+                //MainPage.DisplayAlert("PushNotification Register successful!", "PushNotification should work now ^_^", "Ok");
+
+
+
+                //register the device             
+                registerDevice();
+
 
             }
             catch (System.Exception e)
             {
 
-                MainPage.DisplayAlert("Error", e.Message, "Cancel");
+                await MainPage.DisplayAlert("Error", e.Message, "Cancel");
             }
 
-		}
+        }
 
-		protected override void OnSleep()
+
+        RegistrationDevice regDeviceResponse; 
+
+        private async void registerDevice()
+        {
+            //Erst wenn Device noch nicht registriert, registrieren ausführen
+
+            if(Settings.ClientId == String.Empty)
+            {
+                //Register Pushnotification
+                NotificationManager.Register();
+                
+
+                regDeviceResponse = await networking.registerClientDevice();
+
+                //save device id in application settings:
+                Settings.ClientId = regDeviceResponse.id;
+                //await MainPage.DisplayAlert("Device registered successfully!", "ClientId: " + Settings.ClientId, "Ok");
+            }
+        }
+
+        protected override void OnSleep()
 		{
 			// Handle when your app sleeps
 		}

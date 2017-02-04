@@ -1,8 +1,11 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "Newtonsoft.Json": "8.0.3",
     "Xam.Plugin.PushNotification": "1.2.4",
-    "Xamarin.Forms": "2.3.3.180"
+    "Xam.Plugins.Settings": "2.5.2.1",
+    "Xamarin.Forms": "2.3.3.180",
+    "xamstore-xamarin.mobile": "0.7.1"
   },
   "frameworks": {
     "uap10.0": {}
