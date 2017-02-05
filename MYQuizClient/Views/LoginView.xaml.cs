@@ -1,7 +1,9 @@
 ﻿using MYQuizClient.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,7 +26,7 @@ namespace MYQuizClient
             BindingContext = this;
         }
 
-        public void entry_Completed(object sender, EventArgs e)
+        public async void entry_Completed(object sender, EventArgs e)
         {
 
 			enterGroup();
@@ -36,48 +38,101 @@ namespace MYQuizClient
             isNotBusy = false;
             App.questionView.loadQuestionnaire();
 
+
         }
 
 
-        public async void enterGroup()
+
+
+        private async Task<bool> enterGroup()
         {
-            try {
-                //Nur wenn Device registriert ist, hat es eine ClientId,
-                //dann darf man erst die Gruppe betreten.
+            bool getEntrance = false;
+
+            //Nur wenn Device registriert ist, hat es eine ClientId,
+            //dann darf man erst die Gruppe betreten.
+
+            try
+            {
                 if (Settings.ClientId != String.Empty)
                 {
                     string groupPin = en_pincode.Text;
                     var group = await Networking.Current.enterGroup(groupPin);
 
-                    //Wenn als Antwort vom Server die Gruppe zurückgeliefert wird,
-                    //darf ich zur QuestionView
                     if (group != null)
                     {
-                        App.navigateTo(App.questionView);
+
+                        //korrekte Eingabe
+                        displayCorrect();
+                        getEntrance = true;
+
                     }
-                }else
+                }
+                else
                 {
-                    //Falls Registrierung beim App.OnStart() misslingt
-                    //hier nochmal neu registrieren:
+                    //Wenn Registrierung bei App.OnStart fehlgeschlagen
+                    //hier nochmal registrieren:
                     RegistrationDevice registeredDevice = await Networking.Current.registerClientDevice();
                     Settings.ClientId = registeredDevice.id;
-                    enterGroup();
+                    await enterGroup();
                 }
             }
-            catch(Exception e)
+            catch (WebException webEx)
             {
-                var errorMessage = e.Message;
+                var errorMessage = webEx.Message;
 
-                if(errorMessage == "The remote server returned an error: (400) Bad Request.")
+                if (errorMessage == "The remote server returned an error: (400) Bad Request.")
                 {
-                    lb_loggedin.IsVisible = true;
-                    lb_loggedin.Text = "falscher Pincode";
+                    using (var errorResponse = (HttpWebResponse)webEx.Response)
+                    {
+                        using (var reader = new StreamReader(errorResponse.GetResponseStream()))
+                        {
+                            string error = reader.ReadToEnd();
 
+                            //Fehler abfangen
+
+                            //Bereits eingeloggt
+                            if (error == "Device already exists in Group")
+                            {
+                                displayLoggedIn();
+                                getEntrance = false;
+                            }
+
+
+                            //Falscher PIn für Gruppe
+                            if (error == "Group does not exist!")
+                            {
+                                displayWrongPin();
+                                getEntrance = false;
+                            }
+                        }
+                    }
                 }
-
-                
             }
+            return getEntrance;
         }
+
+        private void displayLoggedIn()
+        {
+            lb_loggedin.Text = "in Gruppe bereits beigetreten";
+            lb_loggedin.IsVisible = true;
+            lb_loggedin.TextColor = Color.Orange;
+        }
+
+        private void displayWrongPin()
+        {
+            lb_loggedin.Text = "falscher Pincode";
+            lb_loggedin.IsVisible = true;
+            lb_loggedin.TextColor = Color.Red;
+        }
+
+        private void displayCorrect()
+        {
+      
+            lb_loggedin.Text = "Login erfolgreich";
+            lb_loggedin.IsVisible = true;
+            lb_loggedin.TextColor = Color.Green;
+        }
+    
 
 
     }

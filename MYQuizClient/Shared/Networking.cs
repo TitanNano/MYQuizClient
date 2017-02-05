@@ -60,11 +60,7 @@ namespace MYQuizClient
         private async Task<T> sendRequest<T>(string route, string methode, object postData)
         {
 
-            if (useFakeData)
-            {
-                //Fake data for offline service
-                return default(T);
-            }
+           
 
             WebRequest request = WebRequest.Create(hostAddress + route);
             request.ContentType = contentType;
