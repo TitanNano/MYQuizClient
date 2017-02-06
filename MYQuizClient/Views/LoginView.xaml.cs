@@ -46,6 +46,7 @@ namespace MYQuizClient
 
             try
             {
+
                 if (Settings.ClientId != String.Empty)
                 {
                     string groupPin = en_pincode.Text;
@@ -126,6 +127,7 @@ namespace MYQuizClient
             lb_loggedin.TextColor = Color.Green;
         }
     
+
 
     }
 }
