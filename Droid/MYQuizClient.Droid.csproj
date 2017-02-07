@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MYQuizClient.Droid</RootNamespace>
     <AssemblyName>MYQuizClient.Droid</AssemblyName>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>

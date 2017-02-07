@@ -96,8 +96,10 @@ namespace MYQuizClient
                 regDeviceResponse = await networking.registerClientDevice();
 
                 //save device id in application settings:
-                Settings.ClientId = regDeviceResponse.id;
+                Settings.ClientId = regDeviceResponse.id.ToString();
                 //await MainPage.DisplayAlert("Device registered successfully!", "ClientId: " + Settings.ClientId, "Ok");
+                               
+                
             }
         }
 

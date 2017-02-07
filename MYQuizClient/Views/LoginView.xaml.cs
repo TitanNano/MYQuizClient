@@ -23,7 +23,41 @@ namespace MYQuizClient
         public LoginView()
         {
             InitializeComponent();
-            BindingContext = this;
+
+            checkRegistered();
+        }
+
+        private async void checkRegistered()
+        {
+            if (isRegistered())
+            {
+               en_pincode.IsEnabled = true;
+            }
+            else
+            {
+               en_pincode.IsEnabled = false;
+               RegistrationDevice registeredDevice = await Networking.Current.registerClientDevice();
+               Settings.ClientId = registeredDevice.id.ToString();
+               checkRegistered();
+                
+
+                
+            }
+        }
+
+        //Wenn registriert wird das Eingabefeld enabled, sonst nicht  
+        private bool isRegistered()
+        {
+           if(Settings.ClientId != String.Empty)
+            {                
+                return true;
+            }
+           else
+            {                
+                return false;
+            }
+            
+
         }
 
         public async void entry_Completed(object sender, EventArgs e)
@@ -39,6 +73,11 @@ namespace MYQuizClient
             App.questionView.loadQuestionnaire();
 
 
+            if (isInGroup)
+            {
+                //ToDo: if isInGroup == true do something
+			}
+
         }
 
 
@@ -52,9 +91,8 @@ namespace MYQuizClient
             //dann darf man erst die Gruppe betreten.
 
             try
-            {
-                if (Settings.ClientId != String.Empty)
-                {
+            {               
+
                     string groupPin = en_pincode.Text;
                     var group = await Networking.Current.enterGroup(groupPin);
 
@@ -66,26 +104,18 @@ namespace MYQuizClient
                         getEntrance = true;
 
                     }
-                }
-                else
-                {
-                    //Wenn Registrierung bei App.OnStart fehlgeschlagen
-                    //hier nochmal registrieren:
-                    RegistrationDevice registeredDevice = await Networking.Current.registerClientDevice();
-                    Settings.ClientId = registeredDevice.id;
-                    await enterGroup();
-                }
+                
             }
             catch (WebException webEx)
             {
-                var errorMessage = webEx.Message;
-
-                if (errorMessage == "The remote server returned an error: (400) Bad Request.")
-                {
+                                            
                     using (var errorResponse = (HttpWebResponse)webEx.Response)
                     {
-                        using (var reader = new StreamReader(errorResponse.GetResponseStream()))
+
+                        if (errorResponse.StatusCode == HttpStatusCode.BadRequest)                   
                         {
+                         using (var reader = new StreamReader(errorResponse.GetResponseStream()))
+                         {
                             string error = reader.ReadToEnd();
 
                             //Fehler abfangen
@@ -104,9 +134,12 @@ namespace MYQuizClient
                                 displayWrongPin();
                                 getEntrance = false;
                             }
+                          }
+
                         }
+
                     }
-                }
+                
             }
             return getEntrance;
         }

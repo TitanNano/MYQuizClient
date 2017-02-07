@@ -111,7 +111,7 @@ namespace MYQuizClient
         public async Task<RegistrationDevice> registerClientDevice()
         {
             var mytoken = NotificationManager.token;
-            var postData = new RegistrationDevice();
+            var postData = new RegistrationDevice() { token = mytoken };
 
             RegistrationDevice device = await sendRequest<RegistrationDevice>("/api/devices", "POST", postData);          
 
