@@ -11,10 +11,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using MYQuizClient.Helpers;
  
-
 using Xamarin.Forms;
-using MYQuizClient.Helpers;
- 
 
 
 namespace MYQuizClient

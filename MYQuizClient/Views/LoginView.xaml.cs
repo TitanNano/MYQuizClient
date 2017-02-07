@@ -158,6 +158,7 @@ namespace MYQuizClient
             lb_loggedin.TextColor = Color.Red;
         }
 
+
         private void displayCorrect()
         {
       
@@ -165,6 +166,7 @@ namespace MYQuizClient
             lb_loggedin.IsVisible = true;
             lb_loggedin.TextColor = Color.Green;
         }
+
     
 
 
