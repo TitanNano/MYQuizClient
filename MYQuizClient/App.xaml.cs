@@ -10,9 +10,6 @@ namespace MYQuizClient
 	{
 
         public NotificationManager NotificationManager;
-        Networking networking;
-
-
         public Networking networking;
 
         //Pages

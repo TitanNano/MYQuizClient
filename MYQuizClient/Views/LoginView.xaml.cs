@@ -20,6 +20,8 @@ namespace MYQuizClient
 
         public bool isNotBusy { get { return p_isNotBusy; } set { p_isNotBusy = value; OnPropertyChanged("isNotBusy"); } }
 
+        private bool isInGroup;
+
         public LoginView()
         {
             InitializeComponent();
@@ -63,7 +65,7 @@ namespace MYQuizClient
         public async void entry_Completed(object sender, EventArgs e)
         {
 
-			enterGroup();
+			isInGroup = await enterGroup();
             //App.navigateTo(App.questionView);
         }
 
