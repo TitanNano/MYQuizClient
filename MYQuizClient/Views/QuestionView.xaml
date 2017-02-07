@@ -1,49 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MYQuizClient.QuestionView"
-             Title="MYQuiz" 
+              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+              xmlns:MYQuizClient="clr-namespace:MYQuizClient"
+              x:Class="MYQuizClient.QuestionView"
+              ItemsSource="{Binding currentQuestionnaire.questionBlock.Questions}"
+              x:Name="cp_questionView"
+              Title="{Binding currentSingleTopic}"
+              CurrentPageChanged="OnCurrentPageChanged"
               >
-
   <CarouselPage.ItemTemplate>
     <DataTemplate>
       <ContentPage>
-
-        
         <StackLayout>
-
-          <StackLayout HeightRequest="150">
-            <Label x:Name="lb_fragebogen" HorizontalTextAlignment="Center" FontSize="20" Text="{Binding fragebogenname}"/>
-            <Label x:Name="lb_time" HorizontalTextAlignment="Center" FontSize="32" Text="0:32" />
-          </StackLayout>
-
-          
-
-          <StackLayout HeightRequest="400" >
-            <Label x:Name="lb_frage" FontSize="24" Text="{Binding fragentext}" />
-            
-            <ListView x:Name="lv_fragen" ItemSelected="OnFragenSelected"
-                      ItemsSource="{Binding antwortliste}">
+          <Label x:Name="lb_time" HeightRequest="100" Margin="30,15,30,0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="32" BindingContext="{x:Reference cp_questionView}" Text="{Binding time, Mode=OneWay}"/>
+          <StackLayout HeightRequest="400" Margin="30,0">
+            <Label x:Name="lb_question" FontSize="24" Text="{Binding Text}" />
+            <ListView x:Name="lv_question" ItemSelected="OnQuestionSelected"
+                      ItemsSource="{Binding AnswerOptions}">
               <ListView.ItemTemplate>
                 <DataTemplate>
-                  <TextCell Text="{Binding text}"  />
+                  <TextCell Text="{Binding Text}"  />
                 </DataTemplate>
               </ListView.ItemTemplate>
             </ListView>
           </StackLayout>
-          
-          
           <StackLayout HeightRequest="70">
-            <Button x:Name="btn_next" Clicked="OnNext" Text="weiter"/>
-            <ProgressBar x:Name="pb_fragenfortschritt" Progress="0.2" />            
+            <Button x:Name="btn_next" Clicked="OnNext" Text="weiter" Margin="30,0"/>
+            <ProgressBar x:Name="pb_questionProgress" BindingContext="{x:Reference cp_questionView}" Progress="{Binding progress}" />            
           </StackLayout>
-
-          
         </StackLayout>
-
-
       </ContentPage>
     </DataTemplate>
   </CarouselPage.ItemTemplate>
-
 </CarouselPage>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,40 +13,102 @@ namespace MYQuizClient
     {
         private App App { get { return (MYQuizClient.App)Application.Current; } }
 
+        private double p_progress;
+        public double progress { get { return p_progress; } set { p_progress = value; OnPropertyChanged("progress"); } }
+
+        private TimeSpan p_time { get; set; }
+        public string time { get { return string.Format("{0:mm}:{0:ss}", p_time); } }
+
+        private Questionnaire p_currentQuestionnaire;
+        public Questionnaire currentQuestionnaire { get { return p_currentQuestionnaire; } set { p_currentQuestionnaire = value; OnPropertyChanged("currentQuestionnaire"); } }
+
+        private DateTime endTime;
+
+        public string currentSingleTopic
+        {
+            get
+            {
+                if (currentQuestionnaire != null)
+                {
+                    if (currentQuestionnaire.singleTopic != null)
+                    {
+                        return currentQuestionnaire.singleTopic.Name;
+                    }
+                    if (currentQuestionnaire.questionBlock.Title != string.Empty)
+                    {
+                        return currentQuestionnaire.questionBlock.Title;
+                    }
+                }
+                return "Fragebogen";
+            }
+        }
+
         public QuestionView()
         {
             InitializeComponent();
 
-            List<Antwort> list_antworten = new List<Antwort>()
-            {
-                new Antwort() { text="in Berlin", typ=Typus.falsch },
-                new Antwort() { text="in Bayern", typ=Typus.falsch },
-                new Antwort() { text="in Hessen", typ=Typus.falsch },
-                new Antwort() { text="in Baden-Württemberg", typ=Typus.richtig }
-            };
+            BindingContext = this;
 
-            List<myContentPage> list_myCpages = new List<myContentPage>() {
-                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 1",
-                    antwortliste = list_antworten },
-                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 2",
-                    antwortliste = list_antworten },
-                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 3",
-                    antwortliste = list_antworten },
-                new myContentPage() { gruppenname="VL_Gruppe1", fragebogenname="Fragebogen 1" , fragentext="Frage 4",
-                    antwortliste = list_antworten },
-            };
-
-            this.ItemsSource = list_myCpages;
         }
 
-
-        public async void OnFragenSelected(object sender, EventArgs args)
+        public async void loadQuestionnaire()
         {
-            Antwort antwort = (sender as ListView).SelectedItem as Antwort;
-
-            if (antwort != null)
+            try
             {
-                await DisplayAlert("Antwort ist ...", antwort.typ.ToString(), "ok");
+
+                currentQuestionnaire = await App.networking.getQuestionnaire("1");
+
+            }
+            catch (Exception e)
+            {
+
+                await App.loginView.DisplayAlert("Netzwerkfehler", "Lloyd ist schuld!", "Macht nichts'", "Ok");
+                currentQuestionnaire = Questionnaire.generateTestData();
+            }
+            startTimer();
+            App.navigateTo(this);
+            App.loginView.isNotBusy = true;
+        }
+
+        public void startTimer()
+        {
+            DateTime unixTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            endTime = unixTime.AddSeconds(currentQuestionnaire.timeStamp);
+
+            p_time = endTime.Subtract(DateTime.Now);
+
+            Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 1), OnTimerTick);
+        }
+
+        private void OnCurrentPageChanged(object sender, EventArgs e)
+        {
+            double indexOfCurrentPage = Children.IndexOf(CurrentPage);
+            double childrenCount = Children.Count;
+
+            progress = (indexOfCurrentPage + 1) / childrenCount;
+        }
+
+        public bool OnTimerTick()
+        {
+            if(p_time.TotalMilliseconds>0)
+            {
+                p_time = endTime.Subtract(DateTime.Now);
+                OnPropertyChanged("time");
+                return true;
+            }
+            OnPropertyChanged("time");
+            App.navigateTo(App.preSendView);
+            return false;
+        }
+
+        public async void OnQuestionSelected(object sender, EventArgs args)
+        {
+            AnswerOption answer = (sender as ListView).SelectedItem as AnswerOption;
+
+            if (answer != null)
+            {
+                await DisplayAlert("Antwort ist ...", answer.IsCorrectBool ? "richtig" : "falsch", "ok");
             }
         }
 
@@ -60,34 +123,6 @@ namespace MYQuizClient
             }
 
             CurrentPage = Children[nextIndex];
-        }
-
-
-    }
-
-
-    public class Antwort
-    {
-        public string text { get; set; }
-        public Typus typ { get; set; }
-    }
-
-    public enum Typus
-    {
-        falsch,
-        richtig
-    }
-
-    public class myContentPage
-    {
-        public string gruppenname { get; set; }
-        public string fragebogenname { get; set; }
-        public string fragentext { get; set; }
-        public List<Antwort> antwortliste { get; set; }
-
-        public myContentPage()
-        {
-            antwortliste = new List<Antwort>();
         }
     }
 }
