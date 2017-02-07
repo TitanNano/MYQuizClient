@@ -15276,6 +15276,7 @@
     "Xam.Plugins.Settings/2.5.2.1": {
       "sha512": "TpUU04qlzGSeC9V235XXFaF8O5BN+FkdWRV8UcUjpZ05pw9syyBUGxdZBYqrlIkDmcuyLb1i7J6V6gLc72joiQ==",
       "type": "package",
+      "path": "Xam.Plugins.Settings/2.5.2.1",
       "files": [
         "Xam.Plugins.Settings.2.5.2.1.nupkg.sha512",
         "Xam.Plugins.Settings.nuspec",

@@ -9,19 +9,18 @@ namespace MYQuizClient
 	{
 
         public NotificationManager NotificationManager;
-        Networking networking;
 
+        public Networking networking;
 
         //Pages
-        public Page loginView;
-        public Page questionView;
-        public Page preSendView;
-        public Page waitingTimeAndFeedbackView;
+        public LoginView loginView;
+        public QuestionView questionView;
+        public PreSendView preSendView;
+        public WaitingTimeAndFeedbackView waitingTimeAndFeedbackView;
 
 		public App()
 		{
 			InitializeComponent();
-                        
             //Networking über Singleton erstellen
             networking = Networking.Current;
 
