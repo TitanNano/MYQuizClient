@@ -9,7 +9,10 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http;
+using MYQuizClient.Helpers;
+ 
 using Xamarin.Forms;
+
 
 namespace MYQuizClient
 {
@@ -54,19 +57,31 @@ namespace MYQuizClient
         private async Task<T> sendRequest<T>(string route, string methode, object postData)
         {
 
-            if (useFakeData)
-            {
-                //Fake data for offline service
-                return default(T);
-            }
+           
 
             WebRequest request = WebRequest.Create(hostAddress + route);
             request.ContentType = contentType;
             request.Method = methode;
 
+            //Gruppe beitreten -> im Header muss zusätzlich "DeviceID" hinzu,
+            //weil Header für Autorisierung benötigt wird.
+            //REST-API-Pfad, um Ressource anzusprechen
+            if(postData is Group)
+            {                
+               request.Headers["DeviceID"] = Settings.ClientId;
+            }
+
+
             if (methode != "GET")
             {
-                var jsonString = JsonConvert.SerializeObject(postData);
+                //Json soll Parameter mit NULL beim String-erstellen ignorieren
+                var jsonString = JsonConvert.SerializeObject(postData, 
+                                                        Newtonsoft.Json.Formatting.None,
+                                                        new JsonSerializerSettings
+                                                        {
+                                                            NullValueHandling = NullValueHandling.Ignore
+                                                        });
+
                 byte[] byteArray = Encoding.UTF8.GetBytes(jsonString);
                 Stream dataStream = await request.GetRequestStreamAsync();
                 dataStream.Write(byteArray, 0, byteArray.Length);
@@ -93,13 +108,28 @@ namespace MYQuizClient
         public async Task<RegistrationDevice> registerClientDevice()
         {
             var mytoken = NotificationManager.token;
-            var postData = new RegistrationDevice();
+            var postData = new RegistrationDevice() { token = mytoken };
 
             RegistrationDevice device = await sendRequest<RegistrationDevice>("/api/devices", "POST", postData);          
 
             return device;
         }
         
+        
+        //Client in Gruppe beitreten
+        public async Task<Group> enterGroup(string groupPin)
+        {
+            var deviceId = Settings.ClientId;
+
+            var postData = new Group() { enterGroupPin = groupPin, id = null, title = null };
+            Group group = await sendRequest<Group>("/api/devices/" + deviceId + "/groups", "POST", postData);
+
+
+            Debug.WriteLine("Networking - enterGroup: deviceId = " + deviceId);
+            Debug.WriteLine("Networking - enterGroup: Title = " + group.title);
+
+            return group;
+        }
                  
   
 
@@ -108,7 +138,7 @@ namespace MYQuizClient
         {
             string route = "/api/groups/" + groupId + "/questions/" + questionId + "/answers";
 
-            var postData = JsonConvert.SerializeObject(answer);
+            var postData = answer;
 
             var result = await sendRequest<object>(route, "POST", postData);
         }
@@ -128,12 +158,14 @@ namespace MYQuizClient
         {
             var result = await sendRequest<object>("/api/groups", "GET", null);
             Debug.WriteLine("Networking - Group Message: " + result);
+
         }
 
         //Get Questionnaire
         public async Task<Questionnaire> getQuestionnaire(string id)
         {
             return await sendRequest<Questionnaire>("/api/givenAnswer/" + id, "GET", null);
+
         }
     }
 }
