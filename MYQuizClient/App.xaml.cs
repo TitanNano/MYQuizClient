@@ -31,8 +31,10 @@ namespace MYQuizClient
             waitingTimeAndFeedbackView = new WaitingTimeAndFeedbackView();
 
             navigateTo(loginView);
-   		}
+           
+        }
 
+        
 
         public void navigateTo(Page page)
         {
@@ -53,7 +55,7 @@ namespace MYQuizClient
 
                 //register the device             
                 registerDevice();
-               
+
 
             }
             catch (System.Exception e)

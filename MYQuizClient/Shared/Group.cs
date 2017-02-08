@@ -11,5 +11,6 @@ namespace MYQuizClient
         public string id { get; set; }
         public string title { get; set; }
         public string enterGroupPin { get; set; }
+        public List<SingleTopic> singleTopics { get; set; }
     }
 }

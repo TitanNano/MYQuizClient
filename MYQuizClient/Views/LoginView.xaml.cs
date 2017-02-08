@@ -29,39 +29,21 @@ namespace MYQuizClient
             checkRegistered();
         }
 
-        private async void checkRegistered()
+        private void checkRegistered()
         {
-            if (isRegistered())
+            if (Settings.ClientId != String.Empty)
             {
                en_pincode.IsEnabled = true;
             }
             else
             {
                en_pincode.IsEnabled = false;
-               RegistrationDevice registeredDevice = await Networking.Current.registerClientDevice();
-               Settings.ClientId = registeredDevice.id.ToString();
-               checkRegistered();
-                
-
-                
-            }
+               lb_loggedin.Text = "Registration failed!";
+               lb_loggedin.TextColor = Color.Red;
+           }
         }
 
-        //Wenn registriert wird das Eingabefeld enabled, sonst nicht  
-        private bool isRegistered()
-        {
-           if(Settings.ClientId != String.Empty)
-            {                
-                return true;
-            }
-           else
-            {                
-                return false;
-            }
-            
-
-        }
-
+ 
         public async void entry_Completed(object sender, EventArgs e)
         {
 
