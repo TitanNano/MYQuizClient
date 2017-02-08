@@ -5,11 +5,11 @@
              Title="Offene Fragen"
              >
   <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-    <StackLayout x:Name="UserEnde" IsVisible="false">
+    <StackLayout x:Name="UserEnde" IsVisible="{Binding IsUserEndeVisible, Mode=OneWay}">
       <Label Text="Vielen Dank!" HorizontalTextAlignment="Center" Margin="0,0,0,100"/>
       <Button Text="Fragebogen senden" BorderColor="Black"/>
     </StackLayout>
-    <StackLayout x:Name="UserOffeneFragen">
+    <StackLayout x:Name="UserOffeneFragen" IsVisible="{Binding IsOffeneFragenVisible, Mode=OneWay}">
 
       <Label Text="Achtung!&#x0a;Einige Fragen wurden&#x0a;nicht beantwortet.&#x0a;&#x0a;Trotzdem senden?" HorizontalTextAlignment="Center"/>
       <StackLayout Orientation="Horizontal" Margin="0,20,0,0">

@@ -54,7 +54,7 @@ namespace MYQuizClient
             {
 
                 //register the device             
-                registerDevice();
+                //registerDevice();
 
 
             }

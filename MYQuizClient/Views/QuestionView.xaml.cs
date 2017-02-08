@@ -24,6 +24,25 @@ namespace MYQuizClient
 
         private DateTime endTime;
 
+        public bool IsQuestionnaireCompleted
+        {
+            get
+            {
+                foreach (ContentPage page in Children)
+                {
+                    if (page.FindByName<ListView>("lv_question").SelectedItem != null)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
         public string currentSingleTopic
         {
             get
@@ -56,7 +75,8 @@ namespace MYQuizClient
             try
             {
 
-                currentQuestionnaire = await App.networking.getQuestionnaire("1");
+                //currentQuestionnaire = await App.networking.getQuestionnaire("8679");
+                currentQuestionnaire = Questionnaire.generateTestData();
 
             }
             catch (Exception e)
@@ -104,6 +124,8 @@ namespace MYQuizClient
 
         public async void OnQuestionSelected(object sender, EventArgs args)
         {
+            //OnPropertyChanged("IsQuestionnaireCompleted");
+
             AnswerOption answer = (sender as ListView).SelectedItem as AnswerOption;
 
             if (answer != null)
@@ -119,6 +141,7 @@ namespace MYQuizClient
             if (nextIndex == Children.Count())
             {
                 App.navigateTo(App.preSendView);
+                CurrentPage = Children[0];
                 return;
             }
 

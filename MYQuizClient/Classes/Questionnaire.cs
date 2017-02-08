@@ -92,7 +92,7 @@ namespace MYQuizClient
                         new Question()
                         {
                             Id=3,
-                            Category="SecondQuestion",
+                            Category="ThirdQuestion",
                             MultipleChoice="MultipleChoiceQ3",
                             Text="Is this the third Question?",
                             AnswerOptions = new List<AnswerOption>()
