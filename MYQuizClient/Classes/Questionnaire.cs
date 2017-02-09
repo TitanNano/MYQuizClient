@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace MYQuizClient
         public double timeStamp { get; set; }
         public SingleTopic singleTopic { get; set; } = new SingleTopic() { Name = "Fragebogen" };
         public QuestionBlock questionBlock { get; set; }
+        public long Id { get; set; }
 
         public Questionnaire() { }
 
@@ -25,7 +27,7 @@ namespace MYQuizClient
                 {
                     Id = 100,
                     Title = "TestDataQuestionBlock",
-                    Questions = new List<Question>()
+                    Questions = new ObservableCollection<Question>()
                     {
                         new Question()
                         {

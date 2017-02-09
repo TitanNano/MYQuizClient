@@ -22,7 +22,9 @@ namespace MYQuizClient
         private Questionnaire p_currentQuestionnaire;
         public Questionnaire currentQuestionnaire { get { return p_currentQuestionnaire; } set { p_currentQuestionnaire = value; OnPropertyChanged("currentQuestionnaire"); } }
 
-        private DateTime endTime;
+        public DateTime endTime;
+
+        public Dictionary<Question, AnswerOption> answers = new Dictionary<Question, AnswerOption>();
 
         public bool IsQuestionnaireCompleted
         {
@@ -30,9 +32,15 @@ namespace MYQuizClient
             {
                 foreach (ContentPage page in Children)
                 {
-                    if (page.FindByName<ListView>("lv_question").SelectedItem != null)
+                    ListView lv = page.FindByName<ListView>("lv_question");
+                    Question question = lv.BindingContext as Question;
+                    if (answers.ContainsKey(question))
                     {
-                        continue;
+                        if (answers[question] != null)
+                        {
+                            continue;
+                        }
+                        return false;
                     }
                     else
                     {
@@ -75,8 +83,8 @@ namespace MYQuizClient
             try
             {
 
-                //currentQuestionnaire = await App.networking.getQuestionnaire("8679");
-                currentQuestionnaire = Questionnaire.generateTestData();
+                currentQuestionnaire = await App.networking.getQuestionnaire("863252379");
+                //currentQuestionnaire = Questionnaire.generateTestData();
 
             }
             catch (Exception e)
@@ -95,7 +103,7 @@ namespace MYQuizClient
             DateTime unixTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             endTime = unixTime.AddSeconds(currentQuestionnaire.timeStamp);
-
+            endTime = DateTime.Now.AddMinutes(2);
             p_time = endTime.Subtract(DateTime.Now);
 
             Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 1), OnTimerTick);
@@ -122,16 +130,20 @@ namespace MYQuizClient
             return false;
         }
 
-        public async void OnQuestionSelected(object sender, EventArgs args)
+        public void OnQuestionSelected(object sender, EventArgs args)
         {
-            //OnPropertyChanged("IsQuestionnaireCompleted");
+            ListView lv = sender as ListView;
 
-            AnswerOption answer = (sender as ListView).SelectedItem as AnswerOption;
+            Question question = lv.BindingContext as Question;
+            AnswerOption answer = lv.SelectedItem as AnswerOption;
 
-            if (answer != null)
+            
+            if (answers.ContainsKey(question))
             {
-                await DisplayAlert("Antwort ist ...", answer.IsCorrectBool ? "richtig" : "falsch", "ok");
+                answers.Remove(question);
             }
+            answers.Add(question, answer);
+            OnPropertyChanged("IsQuestionnaireCompleted");
         }
 
         public void OnNext(object sender, EventArgs args)

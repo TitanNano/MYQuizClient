@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,35 +45,20 @@ namespace MYQuizClient
         private void b_no_Clicked(object sender, EventArgs e)
         {
 
-            if ((new DateTime(1970,1,1,0,0,0,DateTimeKind.Utc).AddSeconds(App.questionView.currentQuestionnaire.timeStamp)).Subtract(DateTime.Now).TotalMilliseconds > 0)
+            if (App.questionView.endTime.Subtract(DateTime.Now).TotalMilliseconds > 0)
             {
-                List<Question> newQuestionList = new List<Question>();
 
-                var notAnsweredPages = (from t in App.questionView.Children where t.FindByName<ListView>("lv_question").SelectedItem == null select t).AsEnumerable();
-
-                foreach (ContentPage notAnsweredPage in notAnsweredPages)
+                List<Question> sortedList = (App.questionView.ItemsSource as ObservableCollection<Question>).OrderBy(x => App.questionView.answers.ContainsKey(x)).ToList();
+                (App.questionView.ItemsSource as ObservableCollection<Question>).Clear();
+                foreach (Question q in sortedList)
                 {
-                    newQuestionList.Add(notAnsweredPage.FindByName<ListView>("lv_question").BindingContext as Question);
+                    (App.questionView.ItemsSource as ObservableCollection<Question>).Add(q);
                 }
-
-                Dictionary<Question,AnswerOption> rememberAnswers = new Dictionary<Question, AnswerOption>();
-
-                foreach (Question question in App.questionView.currentQuestionnaire.questionBlock.Questions)
-                {
-                    if (!newQuestionList.Contains(question))
-                    {
-                        newQuestionList.Add(question);
-                        rememberAnswers.Add(question, App.questionView.Children[App.questionView.currentQuestionnaire.questionBlock.Questions.IndexOf(question)].FindByName<ListView>("lv_question").SelectedItem as AnswerOption);
-                    }
-                }
-
-                App.questionView.currentQuestionnaire.questionBlock.Questions = newQuestionList;
-                OnPropertyChanged("App.questionView.currentQuestionnaire");
 
                 foreach (ContentPage page in App.questionView.Children)
                 {
                     ListView lv = page.FindByName<ListView>("lv_question");
-                    lv.SelectedItem = from r in rememberAnswers where r.Key == lv.BindingContext select r.Value;
+                    lv.SelectedItem = (from r in App.questionView.answers where r.Key == lv.BindingContext select r.Value).FirstOrDefault();
                 }
 
                 App.navigateTo(App.questionView);
