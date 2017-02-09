@@ -38,6 +38,9 @@ namespace MYQuizClient
              * }
              * 
              **/
+
+            new GivenAnswer() { };
+
             App.navigateTo(App.waitingTimeAndFeedbackView);
 
         }
@@ -61,6 +64,7 @@ namespace MYQuizClient
                     lv.SelectedItem = (from r in App.questionView.answers where r.Key == lv.BindingContext select r.Value).FirstOrDefault();
                 }
 
+                App.questionView.OnCurrentPageChanged(null, null);
                 App.navigateTo(App.questionView);
             }
             else

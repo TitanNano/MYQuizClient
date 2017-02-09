@@ -82,8 +82,9 @@ namespace MYQuizClient
         {
             try
             {
-
-                currentQuestionnaire = await App.networking.getQuestionnaire("863252379");
+                List<Questionnaire> questionnaires = await App.networking.getLatestQuestionnaire();
+                questionnaires.OrderBy(x => x.timeStamp);
+                currentQuestionnaire = questionnaires[0];
                 //currentQuestionnaire = Questionnaire.generateTestData();
 
             }
@@ -109,7 +110,7 @@ namespace MYQuizClient
             Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 1), OnTimerTick);
         }
 
-        private void OnCurrentPageChanged(object sender, EventArgs e)
+        public void OnCurrentPageChanged(object sender, EventArgs e)
         {
             double indexOfCurrentPage = Children.IndexOf(CurrentPage);
             double childrenCount = Children.Count;

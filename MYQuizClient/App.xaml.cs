@@ -31,7 +31,12 @@ namespace MYQuizClient
             waitingTimeAndFeedbackView = new WaitingTimeAndFeedbackView();
 
             navigateTo(loginView);
-           
+
+            // Handle when your app starts
+
+            //TODO Manager load
+            NotificationManager = new NotificationManager();
+
         }
 
         
@@ -44,7 +49,6 @@ namespace MYQuizClient
 
         protected override async void OnStart()
         {
-
             // Handle when your app starts
 
             //TODO Manager load
@@ -54,7 +58,7 @@ namespace MYQuizClient
             {
 
                 //register the device             
-                //registerDevice();
+                registerDevice();
 
 
             }
@@ -63,7 +67,6 @@ namespace MYQuizClient
 
                 await MainPage.DisplayAlert("Error", e.Message, "Cancel");
             }
-
         }
 
 
@@ -79,6 +82,9 @@ namespace MYQuizClient
             {
                 //Register Pushnotification
                 NotificationManager.Register();
+
+                //Wait for Token
+                await NotificationManager.WhenReady.Task;
 
                 //Device registrieren
                 regDeviceResponse = await networking.registerClientDevice();

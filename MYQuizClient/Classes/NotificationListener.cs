@@ -23,6 +23,8 @@ namespace MYQuizClient
         void IPushNotificationListener.OnRegistered(string Token, DeviceType deviceType)
         {
             Debug.WriteLine(string.Format("Push Notification - Device Registered - Token : {0}", Token));
+
+            NotificationManager.WhenReady.SetResult(true);
             NotificationManager.token = Token;
         }
         //Fires when device is unregistered
