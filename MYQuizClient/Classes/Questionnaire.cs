@@ -14,6 +14,7 @@ namespace MYQuizClient
         public SingleTopic singleTopic { get; set; } = new SingleTopic() { Name = "Fragebogen" };
         public QuestionBlock questionBlock { get; set; }
         public long Id { get; set; }
+        public long GroupId { get; set; }
 
         public Questionnaire() { }
 

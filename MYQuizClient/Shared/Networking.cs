@@ -56,7 +56,7 @@ namespace MYQuizClient
 
         private async Task<T> sendRequest<T>(string route, string methode, object postData, WebHeaderCollection headers)
         {
-            WebRequest request = WebRequest.CreateHttp(hostAddress + route);
+            WebRequest request = WebRequest.Create(hostAddress + route);
             request.ContentType = contentType;
             request.Method = methode;
 
@@ -93,8 +93,6 @@ namespace MYQuizClient
             WebResponse response = await request.GetResponseAsync();
 
             StreamReader reader = new StreamReader(response.GetResponseStream());
-
-            string test = reader.ReadToEnd();
 
             T value = JsonConvert.DeserializeObject<T>(reader.ReadToEnd());
 
@@ -137,12 +135,11 @@ namespace MYQuizClient
   
 
         //Client sendet beantwortete Frage
-        public async void sendAnsweredQuestion(string groupId, string questionId, GivenAnswer answer)
+        public async void sendAnsweredQuestion(GivenAnswer answer)
         {
-            string route = "/api/groups/" + groupId + "/questions/" + questionId + "/answers";
-
+            string route = "/api/givenAnswer";
+            answer.DeviceId = Convert.ToInt64(Settings.ClientId);
             var postData = answer;
-
             var result = await sendRequest<object>(route, "POST", postData,null);
         }
 

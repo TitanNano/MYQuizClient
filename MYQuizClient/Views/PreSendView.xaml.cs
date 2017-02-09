@@ -25,21 +25,13 @@ namespace MYQuizClient
 
         private void b_yes_Clicked(object sender, EventArgs e)
         {
-            //TODO - Send Answers
-            /**
-             * Example:
-             * How to get answers -> in QuestionView
-             * 
-             * List<AnswerOption> answerOptions = new List<AnswerOption>();
-             * 
-             * foreach(ContentPage page in Children)
-             * {
-             *      answerOptions.Add(page.FindByName<ListView>("lv_question").SelectedItem as AnswerOption);
-             * }
-             * 
-             **/
+            Questionnaire questionnaire = App.questionView.currentQuestionnaire;
 
-            new GivenAnswer() { };
+            foreach (KeyValuePair<Question,AnswerOption> kvp in App.questionView.answers)
+            {
+                GivenAnswer answer = new GivenAnswer() { GroupId = questionnaire.GroupId, QuestionBlockId = questionnaire.Id, QuestionId = kvp.Key.Id, AnswerOptionId = kvp.Value.Id };
+                App.networking.sendAnsweredQuestion(answer);
+            }
 
             App.navigateTo(App.waitingTimeAndFeedbackView);
 

@@ -61,7 +61,7 @@ namespace MYQuizClient
                     {
                         return currentQuestionnaire.singleTopic.Name;
                     }
-                    if (currentQuestionnaire.questionBlock.Title != string.Empty)
+                    if (currentQuestionnaire.questionBlock != null && currentQuestionnaire.questionBlock.Title != string.Empty)
                     {
                         return currentQuestionnaire.questionBlock.Title;
                     }
@@ -84,7 +84,7 @@ namespace MYQuizClient
             {
                 List<Questionnaire> questionnaires = await App.networking.getLatestQuestionnaire();
                 questionnaires.OrderBy(x => x.timeStamp);
-                currentQuestionnaire = questionnaires[0];
+                currentQuestionnaire = questionnaires.Last();
                 //currentQuestionnaire = Questionnaire.generateTestData();
 
             }
@@ -104,7 +104,6 @@ namespace MYQuizClient
             DateTime unixTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             endTime = unixTime.AddSeconds(currentQuestionnaire.timeStamp);
-            endTime = DateTime.Now.AddMinutes(2);
             p_time = endTime.Subtract(DateTime.Now);
 
             Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 1), OnTimerTick);

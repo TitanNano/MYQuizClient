@@ -7,7 +7,7 @@
   <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
     <StackLayout x:Name="UserEnde" IsVisible="{Binding IsUserEndeVisible, Mode=OneWay}">
       <Label Text="Vielen Dank!" HorizontalTextAlignment="Center" Margin="0,0,0,100"/>
-      <Button Text="Fragebogen senden" BorderColor="Black"/>
+      <Button Text="Fragebogen senden" BorderColor="Black" Clicked="b_yes_Clicked"/>
     </StackLayout>
     <StackLayout x:Name="UserOffeneFragen" IsVisible="{Binding IsOffeneFragenVisible, Mode=OneWay}">
 
