@@ -82,16 +82,16 @@ namespace MYQuizClient
         {
             try
             {
-                List<Questionnaire> questionnaires = await App.networking.getLatestQuestionnaire();
-                questionnaires.OrderBy(x => x.timeStamp);
-                currentQuestionnaire = questionnaires.Last();
-                //currentQuestionnaire = Questionnaire.generateTestData();
+                //List<Questionnaire> questionnaires = await App.networking.getLatestQuestionnaire();
+                //questionnaires.OrderBy(x => x.timeStamp);
+                //currentQuestionnaire = questionnaires.Last();
+                currentQuestionnaire = Questionnaire.generateTestData();
 
             }
             catch (Exception e)
             {
 
-                await App.loginView.DisplayAlert("Netzwerkfehler", "Lloyd ist schuld!", "Macht nichts'", "Ok");
+                await App.loginView.DisplayAlert("Netzwerkfehler", "Schade!", "Macht nichts'", "Ok");
                 currentQuestionnaire = Questionnaire.generateTestData();
             }
             startTimer();
@@ -126,7 +126,12 @@ namespace MYQuizClient
                 return true;
             }
             OnPropertyChanged("time");
-            App.navigateTo(App.preSendView);
+
+            if (Navigation.NavigationStack.Contains(this))
+            {
+                App.navigateTo(App.preSendView);
+            }
+
             return false;
         }
 

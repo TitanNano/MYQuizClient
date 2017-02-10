@@ -33,7 +33,7 @@ namespace MYQuizClient
                 App.networking.sendAnsweredQuestion(answer);
             }
 
-            App.navigateTo(App.waitingTimeAndFeedbackView);
+            App.navigateTo(App.loginView);
 
         }
 

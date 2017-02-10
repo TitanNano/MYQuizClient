@@ -9,7 +9,7 @@ namespace MYQuizClient
 	public partial class App : Application
 	{
 
-        public NotificationManager NotificationManager;
+        //public NotificationManager NotificationManager;
         public Networking networking;
 
         //Pages
@@ -35,7 +35,7 @@ namespace MYQuizClient
             // Handle when your app starts
 
             //TODO Manager load
-            NotificationManager = new NotificationManager();
+            //NotificationManager = new NotificationManager();
 
         }
 
@@ -52,7 +52,7 @@ namespace MYQuizClient
             // Handle when your app starts
 
             //TODO Manager load
-            NotificationManager = new NotificationManager();
+            //NotificationManager = new NotificationManager();
 
             try
             {
@@ -81,10 +81,10 @@ namespace MYQuizClient
             if( Settings.ClientId == String.Empty)
             {
                 //Register Pushnotification
-                NotificationManager.Register();
+                //NotificationManager.Register();
 
                 //Wait for Token
-                await NotificationManager.WhenReady.Task;
+                //await NotificationManager.WhenReady.Task;
 
                 //Device registrieren
                 regDeviceResponse = await networking.registerClientDevice();

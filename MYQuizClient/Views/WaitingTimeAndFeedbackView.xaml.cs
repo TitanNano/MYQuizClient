@@ -33,7 +33,10 @@ namespace MYQuizClient
                 return true;
             }
             OnPropertyChanged("time");
-            App.navigateTo(App.loginView);
+            if (Navigation.NavigationStack.Contains(this))
+            {
+                App.navigateTo(App.preSendView);
+            }
             return false;
         }
 

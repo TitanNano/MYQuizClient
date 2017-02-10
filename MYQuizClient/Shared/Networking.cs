@@ -94,7 +94,9 @@ namespace MYQuizClient
 
             StreamReader reader = new StreamReader(response.GetResponseStream());
 
-            T value = JsonConvert.DeserializeObject<T>(reader.ReadToEnd());
+            var textResponse = reader.ReadToEnd();
+
+            T value = JsonConvert.DeserializeObject<T>(textResponse, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
             response.Dispose();
             reader.Dispose();
@@ -109,6 +111,7 @@ namespace MYQuizClient
         public async Task<RegistrationDevice> registerClientDevice()
         {
             var mytoken = NotificationManager.token;
+            mytoken = "0000";
             var postData = new RegistrationDevice() { token = mytoken, id = null, pushUpToken = null, isAdmin = null};
 
             RegistrationDevice device = await sendRequest<RegistrationDevice>("/api/devices", "POST", postData, null);          
@@ -137,10 +140,17 @@ namespace MYQuizClient
         //Client sendet beantwortete Frage
         public async void sendAnsweredQuestion(GivenAnswer answer)
         {
-            string route = "/api/givenAnswer";
-            answer.DeviceId = Convert.ToInt64(Settings.ClientId);
-            var postData = answer;
-            var result = await sendRequest<object>(route, "POST", postData,null);
+            try
+            {
+                string route = "/api/givenAnswer";
+                answer.DeviceId = Convert.ToInt64(Settings.ClientId);
+                var postData = answer;
+                var result = await sendRequest<object>(route, "POST", postData, null);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         //Vorbereitete Fragen abrufen

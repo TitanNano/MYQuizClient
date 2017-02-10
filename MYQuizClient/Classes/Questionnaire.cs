@@ -22,7 +22,7 @@ namespace MYQuizClient
         {
             return new Questionnaire()
             {
-                timeStamp = DateTime.Now.AddMinutes(2).Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds,
+                timeStamp = DateTime.Now.AddSeconds(10).Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds,
                 singleTopic = new SingleTopic() { Name = "TestDataSingleTopic" },
                 questionBlock = new QuestionBlock()
                 {
