@@ -13,6 +13,8 @@ namespace MYQuizClient
         //Received Token after Registration.
         public static string token = string.Empty;
 
+        public static TaskCompletionSource<bool> WhenReady { get; set; } = new TaskCompletionSource<bool>();
+
         public void Register()
         {
 

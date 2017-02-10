@@ -54,14 +54,16 @@ namespace MYQuizClient
 
 
 
-        private async Task<T> sendRequest<T>(string route, string methode, object postData)
+        private async Task<T> sendRequest<T>(string route, string methode, object postData, WebHeaderCollection headers)
         {
-
-           
-
             WebRequest request = WebRequest.Create(hostAddress + route);
             request.ContentType = contentType;
             request.Method = methode;
+
+            if (headers != null)
+            {
+                request.Headers = headers;
+            }
 
             //Gruppe beitreten -> im Header muss zusätzlich "DeviceID" hinzu,
             //weil Header für Autorisierung benötigt wird.
@@ -88,12 +90,13 @@ namespace MYQuizClient
                 dataStream.Dispose();
 
             }
-
             WebResponse response = await request.GetResponseAsync();
 
             StreamReader reader = new StreamReader(response.GetResponseStream());
 
-            T value = JsonConvert.DeserializeObject<T>(reader.ReadToEnd());
+            var textResponse = reader.ReadToEnd();
+
+            T value = JsonConvert.DeserializeObject<T>(textResponse, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
             response.Dispose();
             reader.Dispose();
@@ -108,9 +111,10 @@ namespace MYQuizClient
         public async Task<RegistrationDevice> registerClientDevice()
         {
             var mytoken = NotificationManager.token;
+            mytoken = "0000";
             var postData = new RegistrationDevice() { token = mytoken, id = null, pushUpToken = null, isAdmin = null};
 
-            RegistrationDevice device = await sendRequest<RegistrationDevice>("/api/devices", "POST", postData);          
+            RegistrationDevice device = await sendRequest<RegistrationDevice>("/api/devices", "POST", postData, null);          
 
             return device;
         }
@@ -122,7 +126,7 @@ namespace MYQuizClient
             var deviceId = Settings.ClientId;
 
             var postData = new Group() { enterGroupPin = groupPin, id = null, title = null };
-            Group group = await sendRequest<Group>("/api/devices/" + deviceId + "/groups", "POST", postData);
+            Group group = await sendRequest<Group>("/api/devices/" + deviceId + "/groups", "POST", postData, null);
 
 
             Debug.WriteLine("Networking - enterGroup: deviceId = " + deviceId);
@@ -134,13 +138,19 @@ namespace MYQuizClient
   
 
         //Client sendet beantwortete Frage
-        public async void sendAnsweredQuestion(string groupId, string questionId, GivenAnswer answer)
+        public async void sendAnsweredQuestion(GivenAnswer answer)
         {
-            string route = "/api/groups/" + groupId + "/questions/" + questionId + "/answers";
-
-            var postData = answer;
-
-            var result = await sendRequest<object>(route, "POST", postData);
+            try
+            {
+                string route = "/api/givenAnswer";
+                answer.DeviceId = Convert.ToInt64(Settings.ClientId);
+                var postData = answer;
+                var result = await sendRequest<object>(route, "POST", postData, null);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         //Vorbereitete Fragen abrufen
@@ -149,14 +159,14 @@ namespace MYQuizClient
 
             string route = "/api/questionLists/" + questionListID;
 
-            var result = await sendRequest<object>(route, "GET", null);
+            var result = await sendRequest<object>(route, "GET", null,null);
 
         }
 
         //Gruppen abrufen
         public async void getGroups()
         {
-            var result = await sendRequest<object>("/api/groups", "GET", null);
+            var result = await sendRequest<object>("/api/groups", "GET", null,null);
             Debug.WriteLine("Networking - Group Message: " + result);
 
         }
@@ -164,8 +174,18 @@ namespace MYQuizClient
         //Get Questionnaire
         public async Task<Questionnaire> getQuestionnaire(string id)
         {
-            return await sendRequest<Questionnaire>("/api/givenAnswer/" + id, "GET", null);
+            return await sendRequest<Questionnaire>("/api/givenAnswer/" + id, "GET", null,null);
 
+        }
+
+        //Get latest Questionnaire
+        public async Task<List<Questionnaire>> getLatestQuestionnaire()
+        {
+            WebHeaderCollection headers = new WebHeaderCollection();
+            string cid = Settings.ClientId;
+            headers["DeviceID"] = cid;
+
+            return await sendRequest<List<Questionnaire>>("/api/givenAnswer/latest", "GET", null,headers);
         }
     }
 }

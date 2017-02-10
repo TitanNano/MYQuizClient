@@ -22,7 +22,34 @@ namespace MYQuizClient
         private Questionnaire p_currentQuestionnaire;
         public Questionnaire currentQuestionnaire { get { return p_currentQuestionnaire; } set { p_currentQuestionnaire = value; OnPropertyChanged("currentQuestionnaire"); } }
 
-        private DateTime endTime;
+        public DateTime endTime;
+
+        public Dictionary<Question, AnswerOption> answers = new Dictionary<Question, AnswerOption>();
+
+        public bool IsQuestionnaireCompleted
+        {
+            get
+            {
+                foreach (ContentPage page in Children)
+                {
+                    ListView lv = page.FindByName<ListView>("lv_question");
+                    Question question = lv.BindingContext as Question;
+                    if (answers.ContainsKey(question))
+                    {
+                        if (answers[question] != null)
+                        {
+                            continue;
+                        }
+                        return false;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
 
         public string currentSingleTopic
         {
@@ -34,7 +61,7 @@ namespace MYQuizClient
                     {
                         return currentQuestionnaire.singleTopic.Name;
                     }
-                    if (currentQuestionnaire.questionBlock.Title != string.Empty)
+                    if (currentQuestionnaire.questionBlock != null && currentQuestionnaire.questionBlock.Title != string.Empty)
                     {
                         return currentQuestionnaire.questionBlock.Title;
                     }
@@ -55,14 +82,16 @@ namespace MYQuizClient
         {
             try
             {
-
-                currentQuestionnaire = await App.networking.getQuestionnaire("1");
+                List<Questionnaire> questionnaires = await App.networking.getLatestQuestionnaire();
+                questionnaires.OrderBy(x => x.timeStamp);
+                currentQuestionnaire = questionnaires.Last();
+                //currentQuestionnaire = Questionnaire.generateTestData();
 
             }
             catch (Exception e)
             {
 
-                await App.loginView.DisplayAlert("Netzwerkfehler", "Lloyd ist schuld!", "Macht nichts'", "Ok");
+                await App.loginView.DisplayAlert("Netzwerkfehler", "Schade!", "Macht nichts'", "Ok");
                 currentQuestionnaire = Questionnaire.generateTestData();
             }
             startTimer();
@@ -75,13 +104,12 @@ namespace MYQuizClient
             DateTime unixTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             endTime = unixTime.AddSeconds(currentQuestionnaire.timeStamp);
-
             p_time = endTime.Subtract(DateTime.Now);
 
             Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 1), OnTimerTick);
         }
 
-        private void OnCurrentPageChanged(object sender, EventArgs e)
+        public void OnCurrentPageChanged(object sender, EventArgs e)
         {
             double indexOfCurrentPage = Children.IndexOf(CurrentPage);
             double childrenCount = Children.Count;
@@ -98,18 +126,29 @@ namespace MYQuizClient
                 return true;
             }
             OnPropertyChanged("time");
-            App.navigateTo(App.preSendView);
+
+            if (Navigation.NavigationStack.Contains(this))
+            {
+                App.navigateTo(App.preSendView);
+            }
+
             return false;
         }
 
-        public async void OnQuestionSelected(object sender, EventArgs args)
+        public void OnQuestionSelected(object sender, EventArgs args)
         {
-            AnswerOption answer = (sender as ListView).SelectedItem as AnswerOption;
+            ListView lv = sender as ListView;
 
-            if (answer != null)
+            Question question = lv.BindingContext as Question;
+            AnswerOption answer = lv.SelectedItem as AnswerOption;
+
+            
+            if (answers.ContainsKey(question))
             {
-                await DisplayAlert("Antwort ist ...", answer.IsCorrectBool ? "richtig" : "falsch", "ok");
+                answers.Remove(question);
             }
+            answers.Add(question, answer);
+            OnPropertyChanged("IsQuestionnaireCompleted");
         }
 
         public void OnNext(object sender, EventArgs args)
@@ -119,6 +158,7 @@ namespace MYQuizClient
             if (nextIndex == Children.Count())
             {
                 App.navigateTo(App.preSendView);
+                CurrentPage = Children[0];
                 return;
             }
 

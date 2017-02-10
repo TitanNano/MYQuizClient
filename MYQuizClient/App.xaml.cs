@@ -9,7 +9,7 @@ namespace MYQuizClient
 	public partial class App : Application
 	{
 
-        public NotificationManager NotificationManager;
+        //public NotificationManager NotificationManager;
         public Networking networking;
 
         //Pages
@@ -31,7 +31,12 @@ namespace MYQuizClient
             waitingTimeAndFeedbackView = new WaitingTimeAndFeedbackView();
 
             navigateTo(loginView);
-           
+
+            // Handle when your app starts
+
+            //TODO Manager load
+            //NotificationManager = new NotificationManager();
+
         }
 
         
@@ -44,11 +49,10 @@ namespace MYQuizClient
 
         protected override async void OnStart()
         {
-
             // Handle when your app starts
 
             //TODO Manager load
-            NotificationManager = new NotificationManager();
+            //NotificationManager = new NotificationManager();
 
             try
             {
@@ -63,7 +67,6 @@ namespace MYQuizClient
 
                 await MainPage.DisplayAlert("Error", e.Message, "Cancel");
             }
-
         }
 
 
@@ -78,7 +81,10 @@ namespace MYQuizClient
             if( Settings.ClientId == String.Empty)
             {
                 //Register Pushnotification
-                NotificationManager.Register();
+                //NotificationManager.Register();
+
+                //Wait for Token
+                //await NotificationManager.WhenReady.Task;
 
                 //Device registrieren
                 regDeviceResponse = await networking.registerClientDevice();

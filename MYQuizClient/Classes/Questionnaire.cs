@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace MYQuizClient
         public double timeStamp { get; set; }
         public SingleTopic singleTopic { get; set; } = new SingleTopic() { Name = "Fragebogen" };
         public QuestionBlock questionBlock { get; set; }
+        public long Id { get; set; }
+        public long GroupId { get; set; }
 
         public Questionnaire() { }
 
@@ -19,13 +22,13 @@ namespace MYQuizClient
         {
             return new Questionnaire()
             {
-                timeStamp = DateTime.Now.AddMinutes(2).Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds,
+                timeStamp = DateTime.Now.AddSeconds(10).Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds,
                 singleTopic = new SingleTopic() { Name = "TestDataSingleTopic" },
                 questionBlock = new QuestionBlock()
                 {
                     Id = 100,
                     Title = "TestDataQuestionBlock",
-                    Questions = new List<Question>()
+                    Questions = new ObservableCollection<Question>()
                     {
                         new Question()
                         {
@@ -92,7 +95,7 @@ namespace MYQuizClient
                         new Question()
                         {
                             Id=3,
-                            Category="SecondQuestion",
+                            Category="ThirdQuestion",
                             MultipleChoice="MultipleChoiceQ3",
                             Text="Is this the third Question?",
                             AnswerOptions = new List<AnswerOption>()
