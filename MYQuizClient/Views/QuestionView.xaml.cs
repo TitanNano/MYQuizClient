@@ -82,10 +82,10 @@ namespace MYQuizClient
         {
             try
             {
-                //List<Questionnaire> questionnaires = await App.networking.getLatestQuestionnaire();
-                //questionnaires.OrderBy(x => x.timeStamp);
-                //currentQuestionnaire = questionnaires.Last();
-                currentQuestionnaire = Questionnaire.generateTestData();
+                List<Questionnaire> questionnaires = await App.networking.getLatestQuestionnaire();
+                questionnaires.OrderBy(x => x.timeStamp);
+                currentQuestionnaire = questionnaires.Last();
+                //currentQuestionnaire = Questionnaire.generateTestData();
 
             }
             catch (Exception e)
